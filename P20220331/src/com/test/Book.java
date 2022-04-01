@@ -10,8 +10,15 @@ public class Book {
 	String bookCompany;
 	int bookYear;
 	int bookPrice;
-	String bookRent;
+	int bookRent;
+
 	
+	public int getBookPrice() {
+		return bookPrice;
+	}
+	public void setBookPrice(int bookPrice) {
+		this.bookPrice = bookPrice;
+	}
 	public int getBookNo() {
 		return bookNo;
 	}
@@ -36,16 +43,11 @@ public class Book {
 	public void setBookYear(int bookYear) {
 		this.bookYear = bookYear;
 	}
-	public int getBookPrice() {
-		return bookPrice;
-	}
-	public void setBookPrice(int bookPrice) {
-		this.bookPrice = bookPrice;
-	}
-	public String getBookRent() {
+	
+	public int getBookRent() {
 		return bookRent;
 	}
-	public void setBookRent(String bookRent) {
+	public void setBookRent(int bookRent) {
 		this.bookRent = bookRent;
 	}
 	public String getBookWriter() {
@@ -57,9 +59,8 @@ public class Book {
 	@Override
 	public String toString() {
 		return "책정보 <등록번호: " + bookNo + ", 제목: " + bookTitle + ", 출판사: " + bookCompany + ", 작가: "
-				+ bookWriter + ", 출판년도: " + bookYear + ", 가격: " + bookPrice + ", 대여가능여부: " + bookRent + ">";
+				+ bookWriter + ", 출판년도: " + bookYear + ", 가격 : " + bookPrice + ", 대여가능권수: " + bookRent + ">";
 	}
-	
 	
 	
 }
