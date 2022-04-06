@@ -103,21 +103,36 @@ public class BookExe {
 						}
 
 					} else if (menu == 3) { // 전체도서목록
+						
+						
+						System.out.printf("%14s", "등록번호");
+						System.out.printf("%14s", "제목");
+						System.out.printf("%14s", "작가");
+						System.out.printf("%14s", "출판사");
+						System.out.printf("%14s", "출판년도");
+						System.out.printf("%14s", "가격");
+						System.out.printf("%14s", "대여가능여부");
+						System.out.printf("%14s", "반납예정일");
+						System.out.println();
+						System.out.print("==================================================================================================================================\r\n");
 						List<Book> list = dao.listBook();
 						for (Book l : list) {
-							System.out.println(l.toString());
+							System.out.print(l.toString());
 						}
 
 					} else if (menu == 4) { // 특정 작가의 독서 정보
 						String bookWriter = null;
 						boolean result = dao.beforeSearchByWriter(bookWriter);
+						
 						while (true) {
 							System.out.print("                                            작가이름>> 띄어쓰기까지 정확하게 입력하세요");
 							scn.nextLine();
 							bookWriter = scn.nextLine();
 							result = dao.beforeSearchByWriter(bookWriter);
+							
 							if (result) {
 								List<Book> list = dao.searchByWriter(bookWriter);
+								
 								for (Book l : list) {
 									System.out.println(l.toString());
 								}

@@ -70,8 +70,8 @@ public class Book {
 	}
 	@Override
 	public String toString() {
-		return "==================================================================================================================================\r\n"+"<등록번호> " + bookNo + "  <제목> " + bookTitle + "  <작가> " + bookWriter + "  <출판사> "
-				+ bookCompany + "  <출판년도> " + bookYear + "  <가격> " + bookPrice + "  <대여가능여부> " + bookRent + "  <반납예정일> " + bookDate +" \r\n";
+		return bookNo +bookTitle+bookWriter + bookCompany + bookYear +bookPrice + bookRent +bookDate +" \r\n";
+		
 	}
 	
 	
