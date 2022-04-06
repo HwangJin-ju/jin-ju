@@ -68,11 +68,18 @@ public class Book {
 	public void setBookWriter(String bookWriter) {
 		this.bookWriter = bookWriter;
 	}
+//	@Override
+//	public String toString() {
+//		return String.format("%17d    %-14s%-14s%-10s   %-10d%-10d   %-10s%10s", bookNo, bookTitle, bookWriter, bookCompany, bookYear, bookPrice, bookRent, bookDate+"\r\n");
+//		
+//	}
 	@Override
 	public String toString() {
-		return String.format("%17d    %-14s%-14s%-10s   %-10d%-10d   %-10s%10s", bookNo, bookTitle, bookWriter, bookCompany, bookYear, bookPrice, bookRent, bookDate+"\r\n");
-		
+		return "[등록번호 : " + bookNo + "  제목 : " + bookTitle + "  작가 : " + bookWriter + "  출판사 : "
+				+ bookCompany + "  출판년도 : " + bookYear + "  가격 : " + bookPrice + " 대여가능여부 : " + bookRent
+				+ "  반납기한 : " + bookDate + "]" +"\r\n";
 	}
+	
 	
 	
 }
