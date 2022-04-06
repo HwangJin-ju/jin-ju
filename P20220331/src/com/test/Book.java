@@ -1,5 +1,7 @@
 package com.test;
 
+
+
 public class Book {
 //도서관고유등록번호 (ex.220331+1,2,3,4,~ ) int, 책 이름 String , 저자 String , 출판사 String , 출간년도 int, 
 //    가격 int, 대여 가능 여부 (도서관에 각 도서당 재고는 한 권뿐)
@@ -12,6 +14,8 @@ public class Book {
 	int bookPrice;
 	String bookRent;
 	String bookDate;
+	
+	
 	
 
 	
@@ -66,8 +70,8 @@ public class Book {
 	}
 	@Override
 	public String toString() {
-		return "책정보 <등록번호: " + bookNo + ", 제목: " + bookTitle + ", 출판사: " + bookCompany + ", 작가: "
-				+ bookWriter + ", 출판년도: " + bookYear + ", 가격 : " + bookPrice + ", 대여가능여부: " + bookRent + ", 반납예정일 : " + bookDate+ ">";
+		return "==================================================================================================================================\r\n"+"<등록번호> " + bookNo + "  <제목> " + bookTitle + "  <작가> " + bookWriter + "  <출판사> "
+				+ bookCompany + "  <출판년도> " + bookYear + "  <가격> " + bookPrice + "  <대여가능여부> " + bookRent + "  <반납예정일> " + bookDate +" \r\n";
 	}
 	
 	
