@@ -12,25 +12,25 @@ public class BookExe {
 		Book book = new Book();
 		BookDAO dao = new BookDAO();
 
-		while (true) {
-			System.out.println("                                            ==도서관 통합 관리 시스템에 오신 걸 환영합니다==");
-			System.out.println("                                                     관리자 로그인이 필요합니다   ");
-			System.out.println();
-			System.out.print("                                                         ID>>");
-			String id = scn.next();
-			System.out.print("                                                         PW>>");
-			String pw = scn.next();
-
-			Root root = new Root();
-			root.setRootId(id);
-			root.setRootPw(pw);
-
-			// 사용자가 입력한 값 root와 테이블에 저장된 값을 비교하는 메소드가 필요
-			// loginResult true면 통합 정보 시스템 접속 false면 아이디 비번 다시 확인하라고 출력
-
-			Boolean loginResult = dao.logIn(root);
-
-			if (loginResult) {
+//		while (true) {
+//			System.out.println("                                            ==도서관 통합 관리 시스템에 오신 걸 환영합니다==");
+//			System.out.println("                                                     관리자 로그인이 필요합니다   ");
+//			System.out.println();
+//			System.out.print("                                                         ID>>");
+//			String id = scn.next();
+//			System.out.print("                                                         PW>>");
+//			String pw = scn.next();
+//
+//			Root root = new Root();
+//			root.setRootId(id);
+//			root.setRootPw(pw);
+//
+//			// 사용자가 입력한 값 root와 테이블에 저장된 값을 비교하는 메소드가 필요
+//			// loginResult true면 통합 정보 시스템 접속 false면 아이디 비번 다시 확인하라고 출력
+//
+//			Boolean loginResult = dao.logIn(root);
+//
+//			if (loginResult) {
 				while (true) {
 					System.out.println();
 					System.out.println();
@@ -109,10 +109,10 @@ public class BookExe {
 						System.out.printf("%14s", "제목");
 						System.out.printf("%14s", "작가");
 						System.out.printf("%14s", "출판사");
-						System.out.printf("%14s", "출판년도");
-						System.out.printf("%14s", "가격");
-						System.out.printf("%14s", "대여가능여부");
-						System.out.printf("%14s", "반납예정일");
+						System.out.printf("%10s", "출판년도");
+						System.out.printf("%10s", "가격");
+						System.out.printf("%10s", "대여가능여부");
+						System.out.printf("%10s", "반납예정일");
 						System.out.println();
 						System.out.print("==================================================================================================================================\r\n");
 						List<Book> list = dao.listBook();
@@ -255,14 +255,14 @@ public class BookExe {
 
 				} // while문 끝
 				System.out.println("                                                    Have a nice day!");
-				break;
-			} else {
-				System.out.println();
-				System.out.println("                                                  ID나 PW를 다시 확인해 주세요.");
-				System.out.println();
-			}
+//				break;
+//			} else {
+//				System.out.println();
+//				System.out.println("                                                  ID나 PW를 다시 확인해 주세요.");
+//				System.out.println();
+//			}
 		}
 	} // main메소드 끝
 
-}
+//}
 // 클래스 끝

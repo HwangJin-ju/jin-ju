@@ -70,7 +70,7 @@ public class Book {
 	}
 	@Override
 	public String toString() {
-		return bookNo +bookTitle+bookWriter + bookCompany + bookYear +bookPrice + bookRent +bookDate +" \r\n";
+		return String.format("%17d    %-14s%-14s%-10s   %-10d%-10d   %-10s%10s", bookNo, bookTitle, bookWriter, bookCompany, bookYear, bookPrice, bookRent, bookDate+"\r\n");
 		
 	}
 	
