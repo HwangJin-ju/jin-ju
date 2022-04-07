@@ -114,13 +114,13 @@ public class BookDAO extends DAO {
 		return list;
 	}
 
-	public void rentBook(String bookTitle) { // Y를 N로 바꾸는 메소드
+	public void rentBook(int bookNo) { // Y를 N로 바꾸는 메소드
 		conn = getConnect();
-		String sql = "UPDATE book_tbl\r\n" + "SET book_rent = 'N'\r\n" + "WHERE book_title = ?";
+		String sql = "UPDATE book_tbl\r\n" + "SET book_rent = 'N'\r\n" + "WHERE book_no = ?";
 
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, bookTitle);
+			psmt.setInt(1, bookNo);
 			psmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -132,12 +132,12 @@ public class BookDAO extends DAO {
 	} // 책이름 쳐서 그 책 대출일자 반납일자(대출일자+13) 확인 -> 대출된 책의 db가 저장된 테이블의 값을 조회
 		// ㄴ ??????
 
-	public void returnBook(String bookTitle) { // N을 Y로 바꾸는 메소드
+	public void returnBook(int bookNum) { // N을 Y로 바꾸는 메소드
 		conn = getConnect();
-		String sql = "UPDATE book_tbl\r\n" + "SET book_rent= 'Y'\r\n" + "WHERE book_title = ?";
+		String sql = "UPDATE book_tbl\r\n" + "SET book_rent= 'Y'\r\n" + "WHERE book_no = ?";
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, bookTitle);
+			psmt.setInt(1, bookNum);
 			psmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -147,13 +147,13 @@ public class BookDAO extends DAO {
 		}
 	}
 
-	public Book searchBook(String bookTitle) {
+	public Book searchBook(int bookNum) {
 		conn = getConnect();
 		Book book = null;
-		String sql = "select * from book_tbl where book_title = ?";
+		String sql = "select * from book_tbl where book_no = ?";
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, bookTitle);
+			psmt.setInt(1, bookNum);
 			rs = psmt.executeQuery();
 
 			if (rs.next()) {
@@ -253,12 +253,12 @@ public class BookDAO extends DAO {
 		return false;
 	}
 
-	public void updateDate(String bookTitle) { // 대여했을 때 반납기한 메소드
+	public void updateDate(int bookNum) { // 대여했을 때 반납기한 메소드
 		conn = getConnect();
-		String sql = "UPDATE book_tbl\r\n" + "SET book_date = ADD_MONTHS(SYSDATE, 1)\r\n" + "WHERE book_title = ?";
+		String sql = "UPDATE book_tbl\r\n" + "SET book_date = ADD_MONTHS(SYSDATE, 1)\r\n" + "WHERE book_no = ?";
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, bookTitle);
+			psmt.setInt(1, bookNum);
 			psmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -269,12 +269,12 @@ public class BookDAO extends DAO {
 
 	}
 
-	public void returnDate(String bookTitle) { // 반납했을 때 반납기한을 다시 null로 돌리는 메소드
+	public void returnDate(int bookNum) { // 반납했을 때 반납기한을 다시 null로 돌리는 메소드
 		conn = getConnect();
-		String sql = "UPDATE book_tbl\r\n" + "SET book_date = null\r\n" + "WHERE book_title = ?";
+		String sql = "UPDATE book_tbl\r\n" + "SET book_date = null\r\n" + "WHERE book_no = ?";
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, bookTitle);
+			psmt.setInt(1, bookNum);
 			psmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -292,23 +292,24 @@ public class BookDAO extends DAO {
 				+ "     book_price = ?,\r\n" + "     book_rent = ?\r\n" + "WHERE book_no = ?     ";
 		try {
 			psmt = conn.prepareStatement(sql);
-
-			System.out.println("새로운 정보들을 입력하세요.");
-			System.out.println("기존 정보를 유지할 경우에도 다시 입력하세요.");
-			System.out.println("등록번호>>");
+			System.out.println();
+			System.out.println("                                                새로운 정보들을 입력하세요.");
+			System.out.println("                                                기존 정보를 유지하는 항목도 재입력이 필요합니다.");
+			System.out.println();
+			System.out.print("                                                등록번호▶");
 			int bookNum = scn.nextInt();
 			scn.nextLine();
-			System.out.println("제목>>");
+			System.out.print("                                                제목▶");
 			String bookTitle = scn.nextLine();
-			System.out.println("작가 이름>>");
+			System.out.print("                                                작가 이름▶");
 			String bookWriter = scn.nextLine();
-			System.out.println("출판사>>");
+			System.out.print("                                                출판사▶");
 			String bookCompany = scn.next();
-			System.out.println("출판년도>>");
+			System.out.print("                                                출판년도▶");
 			int bookYear = scn.nextInt();
-			System.out.println("가격>>");
+			System.out.print("                                                가격▶");
 			int bookPrice = scn.nextInt();
-			System.out.println("대여가능여부>>");
+			System.out.print("                                                대여가능여부▶");
 			String bookRent = scn.next();
 
 			Book bookMod = new Book(); // bookMod 수정된 정보를 담을 책 변수
