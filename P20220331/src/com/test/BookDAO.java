@@ -1,7 +1,9 @@
 package com.test;
 
+import java.awt.Container;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -297,19 +299,54 @@ public class BookDAO extends DAO {
 			System.out.println("                                                새로운 정보들을 입력하세요.");
 			System.out.println("                                                기존 정보를 유지하는 항목도 재입력이 필요합니다.");
 			System.out.println();
-			System.out.print("                                                등록번호▶");
-			int bookNum = scn.nextInt();
+			int bookNum = 0;
+			int bookYear = 0;
+			int bookPrice = 0;
+			while (true) {
+				try {
+					System.out.print("                                                등록번호▶");
+					bookNum = scn.nextInt();
+					break;
+				}catch (InputMismatchException e) {
+					System.out.println("                                                숫자만 입력하세요");
+					scn.nextLine();
+					continue;
+				}
+			}
+			
 			scn.nextLine();
 			System.out.print("                                                제목▶");
 			String bookTitle = scn.nextLine();
+			
 			System.out.print("                                                작가 이름▶");
 			String bookWriter = scn.nextLine();
+			
 			System.out.print("                                                출판사▶");
 			String bookCompany = scn.next();
-			System.out.print("                                                출판년도▶");
-			int bookYear = scn.nextInt();
-			System.out.print("                                                가격▶");
-			int bookPrice = scn.nextInt();
+			
+			while(true) {
+				try {
+					System.out.print("                                                출판년도▶");
+					bookYear = scn.nextInt();
+					break;
+				}catch(InputMismatchException e) {
+					System.out.println("                                                숫자만 입력하세요");
+					scn.nextLine();
+					continue;
+				}
+			}
+			
+			while(true) {
+				try {
+					System.out.print("                                                가격▶");
+					bookPrice = scn.nextInt();
+					break;
+				}catch (InputMismatchException e) {
+					System.out.println("                                                숫자만 입력하세요");
+					scn.nextLine();
+					continue;
+				}
+			}
 			System.out.print("                                                대여가능여부▶");
 			String bookRent = scn.next();
 

@@ -15,10 +15,13 @@ public class BookExe {
 		int bookYear = 0;
 		String bookRent = null;
 		int bookPrice = 0;
+		int bookNum = 0;
 
 		while (true) {
 			System.out.printf("%75s", "==도서관 통합 관리 시스템에 오신 걸 환영합니다==\r\n");
 			System.out.printf("%68s", "관리자 로그인이 필요합니다\r\n"); // 아이디 : rootid 비밀번호 : rootpw
+			System.out.printf("%72s", "(테스트용 id : rootid)\r\n");
+			System.out.printf("%72s", "(테스트용 pw : rootpw)\r\n");
 			System.out.println();
 			System.out.printf("%60s", "ID>>");
 			String id = scn.next();
@@ -137,8 +140,17 @@ public class BookExe {
 					} else if (menu == 2) { // 삭제
 						while (true) {
 							System.out.println();
-							System.out.print("                                                    삭제할 책의 등록번호▶");
-							int bookNum = scn.nextInt();
+							while(true) {
+								try {
+									System.out.print("                                                    삭제할 책의 등록번호▶");
+									bookNum = scn.nextInt();
+									break;
+								}catch (InputMismatchException e) {
+									System.out.println("                                                    숫자만 입력해주세요");
+									scn.nextLine();
+									continue;
+								}
+							}
 							boolean result = dao.beforeDeleteBook(bookNum);
 							if (result) {
 								dao.deleteBook(bookNum);
@@ -196,7 +208,7 @@ public class BookExe {
 							System.out.println();
 							System.out.print("                                            대여할 책의 등록번호▶");
 
-							int bookNum = scn.nextInt();
+							bookNum = scn.nextInt();
 
 							Book result = dao.searchBook(bookNum);
 
@@ -224,11 +236,22 @@ public class BookExe {
 
 					} else if (menu == 6) { // 도서반납
 						while (true) {
+							int bookNo = 0;
 							System.out.println();
-							System.out.print("                                            반납할 책의 등록번호▶");
-							int bookNum = scn.nextInt();
-
-							Book result = dao.searchBook(bookNum); // 반납할 책 목록을 가져와서 변수로 선언
+							while(true) {
+								try {
+									System.out.print("                                            반납할 책의 등록번호▶");
+									bookNo = scn.nextInt();
+									break;
+								} catch (InputMismatchException e) {
+									System.out.println("숫자만 입력하세요");
+									scn.nextLine();
+									continue;
+								}
+							}
+							
+							
+							Book result = dao.searchBook(bookNo); // 반납할 책 목록을 가져와서 변수로 선언
 
 							if (result != null) { // null이 아니다 -> 그 책이 존재한다
 								if (result.getBookRent().equals("N")) { // 그 책의 대여상태를 가져와서 'N'면 반납실행
@@ -255,10 +278,21 @@ public class BookExe {
 
 					} else if (menu == 7) { // 입고 중 오타났을 때 정보 수정
 
+						System.out.println();
+						int num = 0;
+						while(true) {
+							
 						while (true) {
-							System.out.println();
-							System.out.print("                                                수정할 책의 등록번호▶");
-							int num = scn.nextInt();
+							try {
+								System.out.print("                                                수정할 책의 등록번호▶");
+								num = scn.nextInt();
+								break;
+							} catch (InputMismatchException e) {
+								System.out.println("                                                숫자만 입력하세요");
+								scn.nextLine();
+								continue;
+							}
+						}
 							boolean result = dao.checkBookNo(num);
 							if (result) {
 								System.out.println();
@@ -293,8 +327,8 @@ public class BookExe {
 				continue;
 			}	
 		}
-		
-	} // main메소드 끝
+
+} // main메소드 끝
 
 }
 // 클래스 끝
