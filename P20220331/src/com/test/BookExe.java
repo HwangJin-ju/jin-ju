@@ -47,7 +47,7 @@ public class BookExe {
 					System.out.printf("%64s", "5.도서대여\r\n");
 					System.out.printf("%64s", "6.도서반납\r\n");
 					System.out.printf("%66s", "7.도서정보수정\r\n");
-					System.out.printf("%65s", "9.프로그램종료\r\n");
+					System.out.printf("%66s", "9.프로그램종료\r\n");
 
 					while (true) {
 						try {
@@ -156,16 +156,6 @@ public class BookExe {
 
 					} else if (menu == 3) { // 전체도서목록
 
-//						System.out.printf("%14s", "등록번호");
-//						System.out.printf("%14s", "제목");
-//						System.out.printf("%14s", "작가");
-//						System.out.printf("%14s", "출판사");
-//						System.out.printf("%10s", "출판년도");
-//						System.out.printf("%10s", "가격");
-//						System.out.printf("%10s", "대여가능여부");
-//						System.out.printf("%10s", "반납예정일");
-//						System.out.println();
-//						System.out.print("==================================================================================================================================\r\n");
 						System.out.println();
 						List<Book> list = dao.listBook();
 						for (Book l : list) {
@@ -284,6 +274,9 @@ public class BookExe {
 					}
 
 					else if (menu == 9) { // 종료
+						System.out.println();
+						System.out.println("                                                     시스템을 종료합니다");
+						System.out.println("                                                    Have a nice day!");
 						break;
 					} else {
 						System.out.println();
@@ -300,9 +293,7 @@ public class BookExe {
 				continue;
 			}	
 		}
-		System.out.println();
-		System.out.println("                                                     시스템을 종료합니다");
-		System.out.println("                                                    Have a nice day!");
+		
 	} // main메소드 끝
 
 }

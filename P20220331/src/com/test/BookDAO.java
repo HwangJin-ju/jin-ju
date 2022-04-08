@@ -11,7 +11,7 @@ public class BookDAO extends DAO {
 
 	public void insertBook(Book book) {
 		conn = getConnect();
-		String sql = "INSERT INTO book_tbl (book_no, book_title, book_writer, book_company, book_year, book_price, book_rent, book_date) "
+		String sql = "INSERT INTO book_tble (book_no, book_title, book_writer, book_company, book_year, book_price, book_rent, book_date) "
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -34,7 +34,7 @@ public class BookDAO extends DAO {
 
 	public void deleteBook(int bookNo) {
 		conn = getConnect();
-		String sql = "DELETE FROM book_tbl\r\n" + "WHERE book_no = ?";
+		String sql = "DELETE FROM book_tble\r\n" + "WHERE book_no = ?";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, bookNo);
@@ -51,7 +51,7 @@ public class BookDAO extends DAO {
 		List<Book> bookList = new ArrayList<Book>();
 		conn = getConnect();
 		String sql = "SELECT book_no, book_title, book_writer, book_company, book_year, book_price, book_rent, NVL(to_char(book_date, 'yyyy-mm-dd'), '대여되지않음') as book_date\r\n"
-				+ "FROM book_tbl\r\n" + "ORDER BY book_no";
+				+ "FROM book_tble\r\n" + "ORDER BY book_no";
 
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -84,12 +84,13 @@ public class BookDAO extends DAO {
 		conn = getConnect();
 		List<Book> list = new ArrayList<Book>();
 		Book book = null;
-		String sql = "SELECT book_no, book_title, book_writer, book_company, book_year, book_price, book_rent, NVL(to_char(book_date, 'yyyy-mm-dd'), '대여되지않음') as book_date \r\n"
-				+ "FROM book_tbl\r\n" + "WHERE book_writer = ?";
+		String sql = "SELECT book_no, book_title, book_writer, book_company, book_year, book_price, book_rent, NVL(to_char(book_date, 'yyyy-mm-dd'), '대여되지않음') as book_date\r\n"
+				+ "FROM book_tble\r\n"
+				+ "WHERE book_writer LIKE ?";
 
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, writer);
+			psmt.setString(1, "%"+ writer+"%");
 			rs = psmt.executeQuery();
 
 			while (rs.next()) {
@@ -116,7 +117,7 @@ public class BookDAO extends DAO {
 
 	public void rentBook(int bookNo) { // Y를 N로 바꾸는 메소드
 		conn = getConnect();
-		String sql = "UPDATE book_tbl\r\n" + "SET book_rent = 'N'\r\n" + "WHERE book_no = ?";
+		String sql = "UPDATE book_tble\r\n" + "SET book_rent = 'N'\r\n" + "WHERE book_no = ?";
 
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -134,7 +135,7 @@ public class BookDAO extends DAO {
 
 	public void returnBook(int bookNum) { // N을 Y로 바꾸는 메소드
 		conn = getConnect();
-		String sql = "UPDATE book_tbl\r\n" + "SET book_rent= 'Y'\r\n" + "WHERE book_no = ?";
+		String sql = "UPDATE book_tble\r\n" + "SET book_rent= 'Y'\r\n" + "WHERE book_no = ?";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, bookNum);
@@ -150,7 +151,7 @@ public class BookDAO extends DAO {
 	public Book searchBook(int bookNum) {
 		conn = getConnect();
 		Book book = null;
-		String sql = "select * from book_tbl where book_no = ?";
+		String sql = "select * from book_tble where book_no = ?";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, bookNum);
@@ -201,7 +202,7 @@ public class BookDAO extends DAO {
 
 	public boolean checkBookNo(int BookNo) { // 등록번호로 그 책이 리스트에 등록된 책인지 아닌지 찾는 메소드
 		conn = getConnect();
-		String sql = "SELECT *\r\n" + "FROM book_tbl\r\n" + "WHERE book_no = ? \r\n";
+		String sql = "SELECT *\r\n" + "FROM book_tble\r\n" + "WHERE book_no = ? \r\n";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, BookNo);
@@ -219,7 +220,7 @@ public class BookDAO extends DAO {
 
 	public boolean beforeDeleteBook(int BookNo) { // 삭제전에 등록번호로 그책이 있는지 없는지 찾는 메소드
 		conn = getConnect();
-		String sql = "SELECT *\r\n" + "FROM book_tbl\r\n" + "WHERE book_no = ? \r\n";
+		String sql = "SELECT *\r\n" + "FROM book_tble\r\n" + "WHERE book_no = ? \r\n";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, BookNo);
@@ -237,7 +238,7 @@ public class BookDAO extends DAO {
 
 	public boolean beforeSearchByWriter(String BookWriter) { // 작가 이름으로 리스트에 그 작가가 있는지 없는지 찾는 메소드
 		conn = getConnect();
-		String sql = "SELECT *\r\n" + "FROM book_tbl\r\n" + "WHERE book_writer = ? \r\n";
+		String sql = "SELECT *\r\n" + "FROM book_tble\r\n" + "WHERE book_writer = ? \r\n";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, BookWriter);
@@ -255,7 +256,7 @@ public class BookDAO extends DAO {
 
 	public void updateDate(int bookNum) { // 대여했을 때 반납기한 메소드
 		conn = getConnect();
-		String sql = "UPDATE book_tbl\r\n" + "SET book_date = ADD_MONTHS(SYSDATE, 1)\r\n" + "WHERE book_no = ?";
+		String sql = "UPDATE book_tble\r\n" + "SET book_date = ADD_MONTHS(SYSDATE, 1)\r\n" + "WHERE book_no = ?";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, bookNum);
@@ -271,7 +272,7 @@ public class BookDAO extends DAO {
 
 	public void returnDate(int bookNum) { // 반납했을 때 반납기한을 다시 null로 돌리는 메소드
 		conn = getConnect();
-		String sql = "UPDATE book_tbl\r\n" + "SET book_date = null\r\n" + "WHERE book_no = ?";
+		String sql = "UPDATE book_tble\r\n" + "SET book_date = null\r\n" + "WHERE book_no = ?";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, bookNum);
@@ -287,7 +288,7 @@ public class BookDAO extends DAO {
 
 	public void modifyBook(int num) { // 수정할 책의 정보를 담은 새로운 인스턴스를 이 메소드의 매개값으로 받음
 		conn = getConnect();
-		String sql = "UPDATE book_tbl\r\n" + "SET book_no = ?, \r\n" + "     book_title = ?, \r\n"
+		String sql = "UPDATE book_tble\r\n" + "SET book_no = ?, \r\n" + "     book_title = ?, \r\n"
 				+ "     book_writer = ?, \r\n" + "     book_company = ?,\r\n" + "     book_year = ?,\r\n"
 				+ "     book_price = ?,\r\n" + "     book_rent = ?\r\n" + "WHERE book_no = ?     ";
 		try {
