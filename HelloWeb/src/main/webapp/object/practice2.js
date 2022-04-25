@@ -18,7 +18,6 @@ for (let i =0; i<firstDay; i++) {
 }
 //날짜 화면 출력
 for (let i = 1; i <= lastDate; i++) {
-  // document.write(`<td>${i}</td>`)
   if((i+ firstDay)%7==0) { //토요일은 파란색
     document.write(`<td style="background-color:lightblue">${i}</td>`)  
     document.write('<tr></tr>')
