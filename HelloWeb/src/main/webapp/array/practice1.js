@@ -25,7 +25,6 @@ let newAry = objAry.filter(function (elem) {
 })
 
 console.log(newAry)
-console.clear()
 
 function femaleList(ary) {
   let tag = '<ul>'
@@ -34,8 +33,9 @@ function femaleList(ary) {
     for (let field in elem) {
       tag += `${field} : ${elem[field]} ${field =='ip_address'? '':', '}`
     }
-    tag += '</ul>'
+    tag += '</li>'
   })
+    tag += '</ul>'
     document.write(tag)
   }
   femaleList(newAry)

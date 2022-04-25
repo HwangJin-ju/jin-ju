@@ -23,13 +23,11 @@ console.log(objAry)
 // tag를 누적시킴
 let result = objAry.reduce(function(accum, elem, ind){
   // <ul>~ </ul>
-  if(ind == 0) {
-    accum += '<ul>'
-  }
+
   accum += `<li>id : ${elem['id']}, first_name : ${elem['first_name']}</li>`
   if(ind == objAry.length-1) {
     accum += '</ul>'
   }
   return accum // 반환된 값은 다음 순번의 초기값이 됨 (계속 누적해서 tag 생성)
-}, '')
+}, '<ul>')
 document.write(result)

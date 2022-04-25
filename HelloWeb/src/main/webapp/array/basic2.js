@@ -20,7 +20,7 @@ let data = `[{"id":1,"first_name":"Elvin","last_name":"Fearon","email":"efearon0
 
 // find()
 let objAry = [] 
-objAry = JSON.parse(data) // 문자열을 object로만
+objAry = JSON.parse(data) // 문자열을 object로
 
 let result = objAry.find(function (elem) {
   return elem.gender == 'Female'
