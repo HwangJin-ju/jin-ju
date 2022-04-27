@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #show {
+      width: 300px;
+      height: 320px;
+      background-color: yellow;
+    }
+
+    span {
+      display: inline-block;
+      width: 88px;
+      height: 20px;
+      margin: 2px;
+      padding: 2px;
+      border: 2px red solid;
+    }
+
+    #show>span:nth-child(1) {
+      color: blue
+    }
+  </style>
+</head>
+
+<body>
+  <input type="text" name="" id="userVal">
+  <div id="show"></div>
+  <script>
+    let data =
+      `Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora incidunt natus voluptates sint porro quam atque expedita vitae? Sit nostrum sunt ea deserunt, rem quia labore. Temporibus ut incidunt asperiores.`
+    let dataAry = data.split(' ')
+
+    let attach = document.getElementById('show')
+    dataAry.forEach(function (elem) {
+      let span = document.createElement('span')
+      span.innerHTML = elem
+      attach.appendChild(span)
+    })
+
+    console.log(dataAry)
+
+    let user = document.getElementById('userVal')
+
+    user.addEventListener('change', function () {
+
+      let spans = document.querySelectorAll('span') // span요소를 다 가져옴
+      // spans =  <span>...</span>, <span>...</span>, .... // ...이 사용자가 입력할 값과 비교할 값
+
+      let val = document.getElementById('userVal').value // 사용자가 입력한 값 
+
+      console.log(val)
+
+      spans.forEach(function (e, inx) {
+        if (e.innerHTML == val) {
+          document.querySelector(`#show>span:nth-child(${inx+1})`).style.display = 'none';
+          // e.style.display = none
+        }
+      })
+
+      // document.querySelector('#show>span:nth-child(1)').style.display = 'none'
+      user.value = ''
+    })
+  </script>
+</body>
+
+</html>

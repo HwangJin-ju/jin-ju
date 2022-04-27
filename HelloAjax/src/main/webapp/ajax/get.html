@@ -1,0 +1,47 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>ajax/get.html</title>
+</head>
+<body>
+	<div id="show">
+		<table border="1">
+			<thead>
+				<tr><th>학생번호</th><th>학생이름</th><th>영어</th><th>국어</th></tr>
+			</thead>
+			<tbody id="list">
+			</tbody>
+		</table>
+	</div>
+	<script>
+		// 서버에 파일을 요청하고 읽어들이도록
+		let xhtp = new XMLHttpRequest(); // XMLHttpRequest() => new String(); 같은 유명한 오브젝트 오브젝트라서 메소드도 있고 속성도 있음
+		xhtp.open("get", "../studentList.json"); // 요청할 페이지 지정
+		xhtp.send(); // 요청시작
+		
+		xhtp.onload = function() {//on~:이벤트와 관련된 속성 onload:요청한 이벤트가 로딩되면
+			let data = JSON.parse(xhtp.response)// [{}, {}, {}] json 타입을 자바스크립트의 오브젝트 타입으로 바꿔줌
+			console.log(data)
+			data.
+			
+			document.getElementById('list').appendChild(makeTr())
+		}
+		
+		
+		
+		function makeTr(student) { // <tr><td>이름 : 홍길동 </td></tr>
+		
+		let tr = document.createElement('tr') // <tr></tr>
+		
+		for(let field in student) { // student.studentNumber, student.studentName ...  
+			let td = document.createElement('td') // <td>이름</td>
+			td.innerHTML= student[field] //<td>학생번호</td><td>학생이름</td>
+			tr.appendChild(td)
+		}
+		
+		return tr
+		
+		}
+	</script>
+</body>
+</html>
