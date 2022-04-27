@@ -22,7 +22,9 @@
 		xhtp.onload = function() {//on~:이벤트와 관련된 속성 onload:요청한 이벤트가 로딩되면
 			let data = JSON.parse(xhtp.response)// [{}, {}, {}] json 타입을 자바스크립트의 오브젝트 타입으로 바꿔줌
 			console.log(data)
-			data.
+			data.forEach(function() {
+				
+			})
 			
 			document.getElementById('list').appendChild(makeTr())
 		}
