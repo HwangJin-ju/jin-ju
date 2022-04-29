@@ -25,6 +25,7 @@
             <thead>
                 <tr>
                     <th>선택</th>
+                    <th>순번</th>
                     <th>아이디</th>
                     <th>이름</th>
                     <th>이메일</th>
@@ -39,19 +40,34 @@
         </table>
     </div>
     <script>
+
+        
         let subBtn = document.getElementById('subBtn')
 
         subBtn.addEventListener('click', function (e) {
             e.preventDefault();
-
+            
             let userId = document.getElementById('uid').value
             let userName = document.getElementById('uname').value
             let email = document.getElementById('email').value
             let phoneNumber = document.getElementById('phone').value
             let birthday = document.getElementById('date').value
+            let order = ''
+            let trAry = document.querySelectorAll('tbody>tr')
+            trAry.forEach(function(val, idx, ary){
+                if(trAry.values == 0) {
+                    order = 1   
+                } else {
+                    order = idx+2
+                }
+
+            })
+            // console.log(`배열의 길이 ${trAry.length}`)
+            // console.log(`순번 ${order}`)
+            
 
             let objUser = { // {userId: userId, userName: userName, email: email, phoneNumber: phoneNumber}
-
+                order: order,
                 userId: userId,
                 userName: userName,
                 email: email,
@@ -61,8 +77,9 @@
 
             let body = document.getElementById('bd')
             body.appendChild(makeTr(objUser))
-
         })
+
+        
 
         let delBtn = document.getElementById('delBtn')
 
@@ -81,13 +98,14 @@
         function makeTr(obj) {
 
             let tr = document.createElement('tr')
+            let td = document.createElement('td')          
             let chkBtn = document.createElement('input') // <input>
             chkBtn.setAttribute('type', 'checkbox') // <input type=checkbox>
-            let td = document.createElement('td')
             td.appendChild(chkBtn)
             tr.appendChild(td)
 
             for (let field in obj) {
+           
                 let td = document.createElement('td')
                 td.innerHTML = obj[field]
                 tr.appendChild(td);
