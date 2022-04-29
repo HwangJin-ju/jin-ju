@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ajax/prac.html</title>
+</head>
+<body>
+	<button id='allChk'>선택삭제</button>
+	<button id='allSelec'>전체선택</button>
+	<button id='allDel'>전체삭제</button>
+
+	<table border="1">
+		
+		<tr>
+			<td><input type=checkbox></td>
+			<td>홍길동1</td>
+		</tr>
+		<tr>
+			<td><input type=checkbox></td>
+			<td>홍길동2</td>
+		</tr>	
+		<tr>
+			<td><input type=checkbox></td>
+			<td>홍길동3</td>
+		</tr>
+		
+	</table>
+	<script>
+	
+	let remBtn = document.getElementById('allChk')
+	let	allTr = document.querySelectorAll('tbody>tr')
+	let selecBtn = document.getElementById('allSelec')
+	
+	remBtn.addEventListener('click', function(){
+		console.log(allTr)  
+		allTr.forEach(function(tr) { 
+			if(tr.firstElementChild.firstElementChild.checked == true) { // tr.firstElementChild.firstElementChild : inputbox
+				tr.remove();
+			}
+		})
+		
+	})
+	
+	selecBtn.addEventListener('click', function() {
+		allTr = document.querySelectorAll('tbody>tr')
+		allTr.forEach(function(tr) {	   
+		   		tr.firstElementChild.firstElementChild.checked = true	   
+		}) 
+	})
+	
+	
+	</script>
+		
+</body>
+
+
+</html>

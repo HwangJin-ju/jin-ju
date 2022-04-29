@@ -5,15 +5,153 @@
 <title>Insert title here</title>
 </head>
 <body>
+	
+	<input type="text" id ="sido" value="대전광역시"><button id="findBtn">찾기</button> <!--인풋태그는 innerHTML이 아니라 value 속성을 읽어와야 함-->
+	<hr>
+	<div id="show">
+		<table border="1">
+			<thead id="thead">
+			</thead>
+			<tbody id="tbody">
+			</tbody>
+		</table>
+		
+	</div>
+
 	<script>
-	let url =`https://api.odcloud.kr/api/15077586/v1/centers?page=1&perPage=284&returnType=JSON&serviceKey=58UZq9vUQOVcaNEgrdWDLgk9Lr2PTn696WMi90HK9hZq6gXTKRccIUx1PrZlAMG4AJSzmSpDdV9QMNMENXgLSA%3D%3D`;
-	let xhtp = new XMLHttpRequest();
-	xhtp.open('get', url);
-	xhtp.send();
-	xhtp.onload = function() {
-		let data = JSON.parse(xhtp.responseText);
-		console.log(data)
-	}
+
+		
+		// 전역 변수는 초기에 선언하기
+		//for in 으로 가져오면 필드가 너무 많아서 보여줄 것만 몇 개 고르기
+		let fields = ['id', 'sido', 'address', 'phoneNumber', 'zipCode']; 
+		
+		// this의 역할
+		let obj = {
+			name: 'Hong',
+			age: 20,
+			showInfo: function() {
+				return this.name + ', ' + this.age; // 오브젝트 안에서는 this : 자기 자신 이벤트에서는 이벤트를 받는대상
+			}
+		}
+		
+		// this 알아보기
+		function globalFnc() {
+			console.log(this); // window객체
+		}
+		globalFnc();
+		
+		//페이지가 로딩되면 바로 실행돼야 하는 기능들
+		function init() { 
+			let url =`https://api.odcloud.kr/api/15077586/v1/centers?page=1&perPage=284&returnType=JSON&serviceKey=58UZq9vUQOVcaNEgrdWDLgk9Lr2PTn696WMi90HK9hZq6gXTKRccIUx1PrZlAMG4AJSzmSpDdV9QMNMENXgLSA%3D%3D`;
+			let result = '' // 페이지 로딩되면 여기에 값 넣을 것
+			let xhtp = new XMLHttpRequest(); // xhtp 비동기처리 방식으로 처리해주는 오브젝트 ( 특정 로직의 실행이 끝날때까지 기다려주지 않고 나머지 코드를 먼저 실행하는것을 비동기 처리라고 한다.)
+			xhtp.open('get', url);
+			xhtp.send();
+			xhtp.onload = loadCallBack // onload 서버로부터 요청한 결과들을 받아옴
+			
+			let findBtn = document.getElementById("findBtn") ;
+			findBtn.addEventListener('click', findCallBack)
+		}
+		init(); // 정의된 init()함수를 실행
+		
+		
+		function findCallBack(){
+			// this 알아보기
+			console.log(this) // 함수안에 선언되어 있어서 window가 나올 것 같지만 이벤트 발생하면 작동하는 콜백함수라서 이벤트 대상인 버튼을 가리킴  
+							  // 단, 화살표 함수일 때는 window
+							  
+			//찾기 버튼 기능 구현 input.value 속성을 읽어와서 filterAry를 생성 => 이 정보를 바탕으로 헤더와 바디를 만들어 화면에 보여주면 됨
+			let searchSido = document.getElementById("sido").value // input박스에 들어간 값(찾고자하는 값) 가져오기 
+			
+			let filterAry = result.data.filter(function(elem) { // filter : 조건들을 걸러내기 위해 쓰는 메소드 -> 값이 트루인 것만 반환하며 새로운 배열을 만들어준다
+				//return elem.sido.startWith(searchSido) ; // startWith(문자)
+				return elem.sido.indexOf(searchSido) != -1; // 찾을 문자열이 없을 경우 -1을 반환한다
+			});
+			
+			makeBody(filterAry);	
+			
+			// 입력하기 편하도록 초기값 지우기
+			document.getElementById("sido").value = '';
+ 		} // end of findCallBack()
+ 		
+ 		
+		
+		
+		console.log('end')
+		
+
+		// console.log("총 건수: " + data.totalCount) 
+		// 예상과는 다르게 총 건수가 undefined로 나옴 -> 비동기방식이라 시간 걸리는 걸 나중에 처리하기 때문에 데이터 결과를 받아오기 전에 콘솔(총건수)가 먼저 찍히기 때문 
+		// -> 제대로 된 결과를 보려면 onload{} 안으로 들어가야 함 (실행 순서에 주의할것) 
+		
+		
+		function loadCallBack() {
+			console.log('center') // 동기적인 방식이라면 순차적으로 센터 -> data -> end 순서로 콘솔에 찍히는데 비동기라서 end가 먼저 찍힘 시간이 걸리는 onload 이후는 나중에 처리하는 것 
+		 	result = JSON.parse(this.responseText); // onload 해서 처리된 결과를 data에 담음 this: 오브젝트가 자기 자신을 가리킬 떄 (xhtp도 오브젝트)
+			console.log(result)
+			console.log("총 건수: " + result.totalCount)
+			
+			console.log(result.data[0])
+			result.data.forEach(function(elem) {
+				if (elem.sido == '서울특별시') {
+		 			console.log(`id: ${elem.id}, center: ${elem.centerName}`)
+				}
+			})
+			
+			
+			
+			let filterAry = result.data.filter(function(elem) { // filter : 조건들을 걸러내기 위해 쓰는 메소드 -> 값이 트루인 것만 반환하며 새로운 배열을 만들어준다
+				return elem.sido == '대전광역시'
+			})	
+			console.log(filterAry)
+			
+			//head
+			let head = document.getElementById('thead');
+			let tr = document.createElement('tr');
+			head.appendChild(tr);
+			fields.forEach(function(elem) {
+				let td = document.createElement('th');
+				td.innerHTML = elem.toUpperCase();
+				tr.appendChild(td)
+			})
+			
+			makeBody(filterAry);
+			
+		} // end of loadCallBack()
+		
+		// 바디 만드는 함수 -> 중복해서 계속 쓸거라 편하게 함수로 만들기
+		function makeBody(ary) {
+			// 이미 생성된 조회정보가 있으면 그건 삭제함 
+			
+			let body = document.getElementById('tbody');
+			let childTr = document.querySelectorAll('#tbody>tr'); // body태그 하위의 tr 전부
+			childTr.forEach(function(elem){ // tr전부를 반복해서 가져옴
+				// elem.remove(); // tr삭제 아래와의 차이점은 얘는 자신을 지움
+				body.removeChild(elem) // 부모를 기준으로 하위요소인 자식요소를 지운다 부모 요소가 꼭 필요 
+			})
+			
+			//body
+			
+			ary.forEach(function(center){ // center -> 대전광역시 요소 하나씩
+				let tr = document.createElement('tr')
+				body.appendChild(tr)
+				
+				fields.forEach(function(elem) { // elem: id, address등 필드의 값은 center가 가지고 있음
+					let td = document.createElement('td');
+					// address 필드일 경우에는 링크를 만듦
+					if(elem == 'address') {
+						let aTag = document.createElement('a');
+						aTag.setAttribute('href', `daumApi.html?x=${center.lat}&y=${center.lng}&z=${center.facilityName}`);
+						aTag.setAttribute('target', '_blank');
+						aTag.innerHTML = center[elem];
+						td.appendChild(aTag)
+					} else{
+						td.innerHTML = center[elem];
+					}
+					tr.appendChild(td)
+				})
+			})
+		} // end of makeBody()
 	</script>
 
 </body>

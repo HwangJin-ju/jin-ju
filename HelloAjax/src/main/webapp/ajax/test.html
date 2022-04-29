@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <form>
+            사용자 아이디<input type="text" name="uid" id="uid" value="user1"><br>
+            사용자이름<input type="text" name="uname" id="uname" value="홍길동"><br>
+            이메일<input type="text" name="email" id="email" value="hong@email.com"><br>
+            전화번호<input type="text" name="phone" id="phone" value="010-1234-5678"><br>
+            생년월일<input type="date" id="date"><br>
+            <input type="submit" value="등록" id="subBtn">
+            <input type="button" value="선택삭제" id="delBtn">
+        </form>
+    </div>
+    <div>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>선택</th>
+                    <th>아이디</th>
+                    <th>이름</th>
+                    <th>이메일</th>
+                    <th>전화번호</th>
+                    <th>생년월일</th>
+                </tr>
+            </thead>
+            <tbody id="bd">
+
+            </tbody>
+
+        </table>
+    </div>
+    <script>
+        let subBtn = document.getElementById('subBtn')
+
+        subBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            let userId = document.getElementById('uid').value
+            let userName = document.getElementById('uname').value
+            let email = document.getElementById('email').value
+            let phoneNumber = document.getElementById('phone').value
+            let birthday = document.getElementById('date').value
+
+            let objUser = { // {userId: userId, userName: userName, email: email, phoneNumber: phoneNumber}
+
+                userId: userId,
+                userName: userName,
+                email: email,
+                phoneNumber: phoneNumber,
+                birthday: birthday
+            }
+
+            let body = document.getElementById('bd')
+            body.appendChild(makeTr(objUser))
+
+        })
+
+        let delBtn = document.getElementById('delBtn')
+
+        delBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            let allTr = document.querySelectorAll('tbody>tr')
+            allTr = document.querySelectorAll('tbody>tr')
+            allTr.forEach(function (tr) {
+                if(tr.firstElementChild.firstElementChild.checked == true) { 
+				tr.remove();
+			}
+             
+            })
+        })
+
+        function makeTr(obj) {
+
+            let tr = document.createElement('tr')
+            let chkBtn = document.createElement('input') // <input>
+            chkBtn.setAttribute('type', 'checkbox') // <input type=checkbox>
+            let td = document.createElement('td')
+            td.appendChild(chkBtn)
+            tr.appendChild(td)
+
+            for (let field in obj) {
+                let td = document.createElement('td')
+                td.innerHTML = obj[field]
+                tr.appendChild(td);
+            }
+
+            return tr
+        }
+    </script>
+</body>
+
+</html>
