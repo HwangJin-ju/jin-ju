@@ -12,10 +12,10 @@
     <div>
         <form>
             사용자 아이디<input type="text" name="uid" id="uid" value="user1"><br>
-            사용자이름<input type="text" name="uname" id="uname" value="홍길동"><br>
-            이메일<input type="text" name="email" id="email" value="hong@email.com"><br>
-            전화번호<input type="text" name="phone" id="phone" value="010-1234-5678"><br>
-            생년월일<input type="date" id="date"><br>
+            사용자이름<input type="text" name="uname" id="uname" value="이동혁"><br>
+            이메일<input type="text" name="email" id="email" value="dong@email.com"><br>
+            전화번호<input type="text" name="phone" id="phone" value="010-2000-0606"><br>
+            생년월일<input type="date" id="date" value="2000-06-06"><br>
             <input type="submit" value="등록" id="subBtn">
             <input type="button" value="선택삭제" id="delBtn">
         </form>
@@ -25,7 +25,7 @@
             <thead>
                 <tr>
                     <th>선택</th>
-                    <th>순번</th>
+                    <th>순번</th> 
                     <th>아이디</th>
                     <th>이름</th>
                     <th>이메일</th>
@@ -40,34 +40,36 @@
         </table>
     </div>
     <script>
+        // document.addEventListener('DOMContentLoaded', init)
+        // init()
 
-        
+
+
+        let dataList = []
         let subBtn = document.getElementById('subBtn')
 
         subBtn.addEventListener('click', function (e) {
             e.preventDefault();
-            
+
             let userId = document.getElementById('uid').value
             let userName = document.getElementById('uname').value
             let email = document.getElementById('email').value
             let phoneNumber = document.getElementById('phone').value
             let birthday = document.getElementById('date').value
-            let order = ''
-            let trAry = document.querySelectorAll('tbody>tr')
-            trAry.forEach(function(val, idx, ary){
-                if(trAry.values == 0) {
-                    order = 1   
-                } else {
-                    order = idx+2
-                }
-
-            })
+            //let order = 1
+            // let trAry = document.querySelectorAll('tbody>tr')
+            // trAry.forEach(function(val, idx, ary){
+            //     if(idx == 0) {
+            //         order = 2   
+            //     } else {
+            //         order = idx+2
+            //     }
+            // })
             // console.log(`배열의 길이 ${trAry.length}`)
-            // console.log(`순번 ${order}`)
+            // console.log(`순번 ${order}`
             
-
             let objUser = { // {userId: userId, userName: userName, email: email, phoneNumber: phoneNumber}
-                order: order,
+                order: dataList.length+1,
                 userId: userId,
                 userName: userName,
                 email: email,
@@ -75,43 +77,50 @@
                 birthday: birthday
             }
 
-            let body = document.getElementById('bd')
-            body.appendChild(makeTr(objUser))
-        })
+            addList(objUser)
+            console.log(dataList)
+            console.log(dataList.length)
 
-        
+            let body = document.getElementById('bd')
+
+            bd.appendChild(makeTr(objUser))
+        })
 
         let delBtn = document.getElementById('delBtn')
 
         delBtn.addEventListener('click', function (e) {
             e.preventDefault();
             let allTr = document.querySelectorAll('tbody>tr')
-            allTr = document.querySelectorAll('tbody>tr')
             allTr.forEach(function (tr) {
-                if(tr.firstElementChild.firstElementChild.checked == true) { 
-				tr.remove();
-			}
-             
+                if (tr.firstElementChild.firstElementChild.checked == true) {
+                    tr.remove();
+                }
+
             })
         })
 
         function makeTr(obj) {
 
-            let tr = document.createElement('tr')
-            let td = document.createElement('td')          
+            let tr = document.createElement('tr') // <tr></tr>  <input> 
+            let td = document.createElement('td')
             let chkBtn = document.createElement('input') // <input>
             chkBtn.setAttribute('type', 'checkbox') // <input type=checkbox>
             td.appendChild(chkBtn)
             tr.appendChild(td)
 
             for (let field in obj) {
-           
+
                 let td = document.createElement('td')
                 td.innerHTML = obj[field]
                 tr.appendChild(td);
             }
 
             return tr
+        }
+
+        function addList(obj) {          
+            dataList.push(obj)
+            return dataList
         }
     </script>
 </body>
