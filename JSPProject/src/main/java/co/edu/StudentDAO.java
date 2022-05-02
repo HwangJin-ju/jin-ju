@@ -6,6 +6,32 @@ import java.util.List;
 
 public class StudentDAO extends DAO {
 	
+	// id로 한건조회
+	public Student searchStudent(String id) {
+		conn = getConnect();
+		String sql = "select * from student_info where student_no = ?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, id);
+			rs = psmt.executeQuery();
+			if(rs.next()) { //rs.next() : 한 건 조회된 결과가 있으면
+				
+				Student stud = new Student();
+				stud.setStudentNo(rs.getInt("student_no")); // rs.get~ : result set에 담겨 있는 값을 가지고 오기
+				stud.setStudentName(rs.getString("student_name"));
+				stud.setEngScore(rs.getInt("eng_score"));
+				stud.setKorScore(rs.getInt("kor_score"));
+				return stud;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		return null; //조회했는데 결과 없을 때
+	}
+	
 	// 수정
 	public boolean modifyStudent(Student std) {
 		conn = getConnect();
