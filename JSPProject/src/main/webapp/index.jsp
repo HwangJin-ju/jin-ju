@@ -17,8 +17,9 @@
 		//get과 post 방식의 차이점 기억할 것 넘겨받은 정보가 주소표시줄에 그대로 보이는 get과 안보이는 post
 		String id = request.getParameter("user_id"); // user_id(파라미터) 라는 input 태그의 값을 읽어옴
 		String name2 = request.getParameter("user_name");
-		out.println("<h4>입력값 : " +id + ", name" + name);
+		out.println("<h4>입력값: " +id + ", name: " + name2 + "</h4>");
 		
 	%>
+	<a href="./student.do">Student Servlet</a>
 </body>
 </html>

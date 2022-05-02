@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
-  <display-name>JSPProject</display-name>
-  <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>   
-  </welcome-file-list>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	id="WebApp_ID" version="4.0">
+	<display-name>JSPProject</display-name>
+	<servlet>
+		<servlet-name>StudentServlet</servlet-name> <!--임의의 이름 -->
+		<servlet-class>co.edu.StudentServlet</servlet-class> <!-- 실행(호출)하는 거 => 매핑할 클래스 파일명을 패키지명까지 포함하여 정확하게 입력 -->
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>StudentServlet</servlet-name>
+		<url-pattern>/student.do</url-pattern> <!-- 주소줄에 치는 거, *은 all이라는 의미 -> *자리에는 뭐가 들어가든 뒤에만 .do로 끝나면 이 페이지가 뜸, * 안 
+			쓰면 /로 시작해야 함 -->
+	</servlet-mapping>
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
 </web-app>
