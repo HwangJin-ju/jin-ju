@@ -37,6 +37,7 @@ public class StudentGetServlet extends HttpServlet { // 이걸 class로 추가�
 			response.setContentType("text/html;charset=utf-8");
 
 			if (student != null) {
+				
 				response.getWriter().println("<h3>학생번호: " + student.getStudentNo() + "</h3>");
 				response.getWriter().println("<h3>이름: " + student.getStudentName() + "</h3>");
 				response.getWriter().println("<h3>영어: " + "<input id=eng type=number value=" + student.getEngScore()+ "></h3>");
@@ -44,7 +45,9 @@ public class StudentGetServlet extends HttpServlet { // 이걸 class로 추가�
 				response.getWriter().println("<input id='modList' type=button value='점수 수정'>");
 				// js 영역
 				response.getWriter().println("<script> let modList = document.getElementById('modList'); modList.addEventListener('click', function() {"
-						+ "document.getElementById('eng').value })</script>");
+						+ "document.getElementById('eng').value
+						document.getElementById('kor).value 
+						})</script>");
 				
 			} else {
 				response.getWriter().println("<h3>조회된 데이터가 없습니다.</h3>");
