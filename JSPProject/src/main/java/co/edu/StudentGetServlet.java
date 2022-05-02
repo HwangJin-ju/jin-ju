@@ -37,26 +37,17 @@ public class StudentGetServlet extends HttpServlet { // 이걸 class로 추가�
 			response.setContentType("text/html;charset=utf-8");
 
 			if (student != null) {
-				response.getWriter().println("<form action='StudentGetServlet' method='post'>")
+				response.getWriter().println("<form action='StudentGetServlet' method='post'>");
 				response.getWriter().println("<h3>학생번호: " + student.getStudentNo() + "</h3>");
 				response.getWriter().println("<h3>이름: " + student.getStudentName() + "</h3>");
 				response.getWriter().println("<h3>영어: " + "<input id=eng name='eng_score' type=number value=" + student.getEngScore()+ "></h3>");
 				response.getWriter().println("<h3>국어: " + "<input id=kor name='kor_score' type=number value=" + student.getKorScore()+ "></h3>");
-				response.getWriter().println("<input type='hidden' name= d")
-				response.getWriter().println("<input id='modList' type='submit' value='점수 수정'>");
-				response.getWriter().println("</form>"); 
-				// js 영역
-				response.getWriter().println("<script> 
-						
-						let modList = document.getElementById('modList'); modList.addEventListener('click', function() {
-					  let eng = document.getElementById('eng').value
-						let kor = document.getElementById('kor').value
-						
-
-						 
-						})
-						
-						</script>");
+				response.getWriter().println("<input type='hidden' name='cmd' value='mod'>");
+				response.getWriter().println("<input type='hidden' name='user_id' value=" + student.getStudentNo() +">");
+				response.getWriter().println("<input type='hidden' name='user_name' value=" + student.getStudentName() + ">");
+				response.getWriter().println("<input type='submit' value='수정'>");
+				response.getWriter().println("</form>");
+				
 				
 			} else {
 				response.getWriter().println("<h3>조회된 데이터가 없습니다.</h3>");
@@ -136,7 +127,7 @@ public class StudentGetServlet extends HttpServlet { // 이걸 class로 추가�
 			stud.setStudentName(name);
 			stud.setEngScore(Integer.parseInt(eng));
 			stud.setKorScore(Integer.parseInt(kor));
-
+			
 			StudentDAO dao = new StudentDAO();
 			dao.modifyStudent(stud);
 		} 
