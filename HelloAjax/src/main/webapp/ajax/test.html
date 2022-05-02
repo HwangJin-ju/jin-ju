@@ -56,6 +56,8 @@
             let email = document.getElementById('email').value
             let phoneNumber = document.getElementById('phone').value
             let birthday = document.getElementById('date').value
+            let cnt = 0
+      
             //let order = 1
             // let trAry = document.querySelectorAll('tbody>tr')
             // trAry.forEach(function(val, idx, ary){
@@ -69,7 +71,7 @@
             // console.log(`순번 ${order}`
             
             let objUser = { // {userId: userId, userName: userName, email: email, phoneNumber: phoneNumber}
-                order: dataList.length+1,
+                // order: dataList.length+1,
                 userId: userId,
                 userName: userName,
                 email: email,
@@ -101,16 +103,16 @@
 
         function makeTr(obj) {
 
-            let tr = document.createElement('tr') // <tr></tr>  <input> 
-            let td = document.createElement('td')
+            let tr = document.createElement('tr') // <tr></tr>  
+            let td = document.createElement('td') // <td></td>
             let chkBtn = document.createElement('input') // <input>
             chkBtn.setAttribute('type', 'checkbox') // <input type=checkbox>
-            td.appendChild(chkBtn)
-            tr.appendChild(td)
+            td.appendChild(chkBtn) // <td><input type=checkbox</td>
+         
+
 
             for (let field in obj) {
-
-                let td = document.createElement('td')
+                td = document.createElement('td')
                 td.innerHTML = obj[field]
                 tr.appendChild(td);
             }
