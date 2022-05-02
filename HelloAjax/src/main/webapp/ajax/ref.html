@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #container {
+      width: 800px;
+      padding: 0px;
+      margin: 0 auto;
+    }
+
+    /**/
+    #inputSection {
+      margin: 0;
+      background: #FEE;
+      width: 496px;
+      height: 300px;
+      display: inline-block;
+      border: 2px solid gray;
+      float: left;
+    }
+    #inputSection ul {
+      margin: 0;
+      list-style-type: none;
+    }
+    #inputSection label {
+      display: inline-block;
+      width: 150px;
+    }
+    #inputSection input {
+      display: inline-block;
+      margin-top: 30px;
+      width: 220px;
+    }
+
+    /**/
+    #submitSection {
+      margin: 0;
+      background: #FDD;
+      width: 296px;
+      height: 300px;
+      display: inline-block;
+      border: 2px solid gray;
+    }
+
+    #submitSection input {
+      display: inline-block;
+      margin: 30px 85px;
+      width: 120px;
+      height: 80px;
+    }
+
+    #tableSection {
+      background: rgb(212, 197, 197);
+      padding-top: 40px;
+      height: 600px;
+      border: 2px solid gray;
+    }
+    #tableSection table {
+      clear: both;
+      margin: 0 auto;
+    }
+    #tableSection table #t_id {
+      width: 70px;
+    }
+    #tableSection table #t_name {
+      width: 70px;
+    }
+    #tableSection table #t_email {
+      width: 140px;
+    }
+    #tableSection table #t_phone {
+      width: 120px;
+    }
+    #tableSection table #t_birth {
+      width: 100px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <header>
+    </header>
+    <section id="inputSection">
+      <ul>
+        <li>
+          <label for="userId">사용자아이디</label>
+          <input type="text" name="userId" id="userId">
+        </li>
+        <li>
+          <label for="userName">사용자이름</label>
+          <input type="text" name="userName" id="userName">
+        </li>
+        <li>
+          <label for="email">이메일</label>
+          <input type="email" name="email" id="email">
+        </li>
+        <li>
+          <label for="phone">전화번호</label>
+          <input type="tel" name="phone" id="phone">
+        </li>
+        <li>
+          <label for="birth">생년월일</label>
+          <input type="date" name="birth" id="birth">
+        </li>
+      </ul>
+    </section>
+    <section id="submitSection">
+      <input type="button" id="btnSubmit" value="등록">
+      <input type="button" id="btnDelSelected" value="삭제">
+    </section>
+    <section id="tableSection">
+      <table border="1">
+        <thead>
+          <tr>
+            <th id="t_no">순번</th>
+            <th id="t_sel">선택</th>
+            <th id="t_id">아이디</th>
+            <th id="t_name">이름</th>
+            <th id="t_email">이메일</th>
+            <th id="t_phone">전화번호</th>
+            <th id="t_birth">생년월일</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </section>
+  </div>
+  <script>
+    let count = 1;
+
+    let btnSubmit = document.getElementById('btnSubmit');
+    let btnDel = document.getElementById('btnDelSelected');
+
+    btnSubmit.addEventListener('click', addUserEvent);
+    btnDel.addEventListener('click', deleteSelectedUser);
+
+    function addUserEvent(e) {
+      let tbody = document.querySelector("#tableSection tbody");
+      let inputs = document.querySelectorAll("#inputSection input");
+      let user = {};
+      inputs.forEach(function(elem) {
+        user[elem.id] = elem.value;
+      });
+      tbody.appendChild(makeTr(user));
+      inputs.forEach(function(elem) {
+        elem.value = "";
+      });
+    }
+
+    function makeTr(userObj) {
+      let trTag = document.createElement('tr');
+      let numTd = document.createElement('td');
+      let selTd = document.createElement('td');
+      let inputSel = document.createElement('input');
+      
+      trTag.id = 'id_'+userObj.userId;
+      numTd.innerHTML = count++;
+      inputSel.type = 'checkbox';
+      inputSel.className = 'userSelector'
+
+      selTd.appendChild(inputSel);
+      trTag.appendChild(numTd);
+      trTag.appendChild(selTd);
+
+      for ( field in userObj ) {
+        let td = document.createElement('td');
+        td.innerHTML = userObj[field];
+        trTag.appendChild(td);
+      }
+      return trTag;
+    }
+
+    function deleteSelectedUser(e) {
+      let allTr = document.querySelectorAll("#tableSection tbody tr");
+      // console.log(allTr);
+      let selectedTr;
+      allTr.forEach(function(tr) {
+        if(tr.children[1].firstElementChild.checked) {
+          tr.remove();
+        }
+      });
+    }
+
+  </script>
+</body>
+
+</html>
