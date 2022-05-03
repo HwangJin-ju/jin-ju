@@ -8,6 +8,32 @@ import co.dev.DAO;
 import co.dev.vo.MemberVO;
 
 public class MemberDAO extends DAO{
+	public void modifyMember(MemberVO member) {
+		conn = getConnect();
+		String sql = "update member \r\n"
+				+ "set passwd = ?, \r\n"
+				+ "name = ?,\r\n"
+				+ "email = ?\r\n"
+				+ "where id = ?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, member.getPasswd());
+			psmt.setString(2, member.getName());
+			psmt.setString(3, member.getEmail());
+			psmt.setString(4, member.getId());
+			
+			int r= psmt.executeUpdate();
+			System.out.println(r + "건 변경됨");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		
+	}
+	
 	public void insertMember(MemberVO member) {
 		conn = getConnect();
 		String sql = "insert into member(id, name, passwd, email) values(?,?,?,?)";

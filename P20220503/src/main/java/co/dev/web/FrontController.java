@@ -31,7 +31,6 @@ public class FrontController extends HttpServlet {
 		req.setCharacterEncoding(charset);
 		
 		
-		
 		String url =  req.getRequestURI(); // /P20220503/memberInsert.do 
 		String context = req.getContextPath(); // 프로젝트이름
 		String path = url.substring(context.length()); // memberInsert.do의 제일 마지막 부분을 담아오겠다는 의미 패키지 이후의 값을 잘라냄

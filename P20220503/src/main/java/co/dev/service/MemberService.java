@@ -15,5 +15,9 @@ public class MemberService {
 	public List<MemberVO> memberList() {
 		return dao.listMember();
 	}
+	
+	public void memberModify(MemberVO member) {
+		dao.modifyMember(member);
+	}
 
 }

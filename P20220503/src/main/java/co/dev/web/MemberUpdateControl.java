@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import co.dev.service.MemberService;
 import co.dev.vo.MemberVO;
 
 public class MemberUpdateControl implements Control {
@@ -25,6 +26,14 @@ public class MemberUpdateControl implements Control {
 		vo.setName(nm);
 		vo.setEmail(em);
 		
+		MemberService service = new MemberService();
+		service.memberModify(vo);
+		
+		request.setAttribute("id", id);
+		request.setAttribute("name", nm);
+		
+		
+		request.getRequestDispatcher("memberResult/memberUpdateOutput.jsp").forward(request, response);
 		
 	}
 
