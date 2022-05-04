@@ -13,28 +13,28 @@ public class MemberUpdateControl implements Control {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("수정처리하는 컨트롤입니다.");
+		String id =request.getParameter("id");
+		String name =request.getParameter("name");
+		String passwd =request.getParameter("passwd");
+		String email =request.getParameter("email");
 		
-		String id = request.getParameter("id");
-		String pw = request.getParameter("passwd");
-		String nm = request.getParameter("name");
-		String em = request.getParameter("email");
+		if (id.isEmpty() || name.isBlank() || passwd.isBlank() || email.isBlank()) {
+			request.setAttribute("error", "모든 항목을 입력하세요.");
+			request.getRequestDispatcher("memberView/memberUpdate.jsp").forward(request, response);
+			return;
+		}
 		
-		MemberVO vo = new MemberVO();
-		vo.setId(id);
-		vo.setPasswd(pw);
-		vo.setName(nm);
-		vo.setEmail(em);
+		MemberVO member = new MemberVO();
+		member.setId(id);
+		member.setName(name);
+		member.setEmail(email);
+		member.setPasswd(passwd);
 		
 		MemberService service = new MemberService();
-		service.memberModify(vo);
+		service.memberUpdate(member);
 		
 		request.setAttribute("id", id);
-		request.setAttribute("name", nm);
-		
-		
 		request.getRequestDispatcher("memberResult/memberUpdateOutput.jsp").forward(request, response);
-		
 	}
 
 }

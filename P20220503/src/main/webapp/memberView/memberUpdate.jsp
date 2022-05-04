@@ -1,20 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>memberUpdate.jsp</title>
 </head>
 <body>
-	<h3>회원정보수정화면</h3>
-	<form action="../memberUpdate.do" method="post">
-		아이디: <input type="text" name="id"><br> <!-- name 속성은 파라미터의 이름 -->
-		비밀번호: <input type="password" name="passwd"><br>
-		이름: <input type="text" name="name"><br>
-		메일: <input type="email" name="email"><br>
-		<input type="submit" value="수정"> 
-		
+	${error }
+	<h3>수정할 회원 정보</h3>
+	<form action="${pageContext.servletContext.contextPath }/memberSearch.do" method="get">
+	조회 아이디 : <input type="text" name="id"><br> <!-- 넘어가는 파라미터가 id, job 두개 -->
+	<input type="hidden" name="job" value="update"> 
+	<input type="submit" value="Search"> 
 	</form>
+	
+	<c:choose>
+		<c:when test="${!empty result }"><h3>${result }</h3></c:when>
+		<c:otherwise>
+			<h3>회원 정보 수정</h3>
+			<form action="${pageContext.servletContext.contextPath }/memberUpdate.do" method="post">
+				아이디: <input type="text" name="id" readonly value="${member.id }"><br>
+				이름: <input type="text" name="name" value="${member.name }"><br>
+				이메일: <input type="email" name="email" value="${member.email }"><br>
+				비밀번호: <input type="text" name="passwd" value="${member.passwd }"><br>
+				<input type="submit" value="수정">
+			</form>
+			
+		</c:otherwise>
+	</c:choose>
+	<jsp:include page="home.jsp"></jsp:include>
+	
+	
 </body>
 </html>

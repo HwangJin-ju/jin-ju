@@ -9,7 +9,9 @@
 <body>
 	<h3>첫페이지입니다.</h3>
 	<a href="memberView/memberInsert.jsp">회원정보생성</a><br> <!-- jsp의 목적은 대체적으로 뷰 memberInsert.jsp 목적 회원정보등록-->
+	<a href="memberView/memberSearch.jsp">회원정보검색</a><br>
+	<a href="memberView/memberUpdate.jsp">회원정보수정</a><br>
+	<a href="memberView/memberDelete.jsp">회원정보삭제</a><br>
 	<a href="memberList.do">모든회원정보</a><br>
-	<a href="memberView/memberUpdate.jsp">회원정보수정</a>
 </body>
 </html> 
