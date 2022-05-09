@@ -22,9 +22,7 @@ public class ToDoDAO {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			while(rs.next()) {
-				ToDoVO vo = new ToDoVO(rs.getString("to_do")
-						, rs.getString("checked")
-						);
+				ToDoVO vo = new ToDoVO(rs.getString("to_do"));
 				list.add(vo);
 			}
 		} catch (SQLException e) {
@@ -39,7 +37,8 @@ public class ToDoDAO {
 	
 	public void insertList(ToDoVO vo) {
 		getConnect();
-		String sql = "insert into to_do_list (to_do, checked) values(?,?)";
+		String sql = "insert into to_do_list \r\n"
+				+ "values (?)";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, vo.getToDo());

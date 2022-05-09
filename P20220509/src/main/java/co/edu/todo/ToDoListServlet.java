@@ -46,13 +46,11 @@ public class ToDoListServlet extends HttpServlet {
 		
 		if(job.equals("insert")) {
 			String toDo = request.getParameter("toDo");
-			String checked = request.getParameter("checked");
 			
-			ToDoVO vo = new ToDoVO(toDo, checked);
+			ToDoVO vo = new ToDoVO(toDo);
 			dao.insertList(vo);
 			
 		} else if(job.equals("delete")) {
-			String title = request.getParameter("title");
 			
 		}
 				

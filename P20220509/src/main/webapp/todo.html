@@ -140,6 +140,8 @@ input {
 <script>
 
 
+
+
 // Create a "close" button and append it to each list item
 var myNodelist = document.getElementsByTagName("LI");
 var i;
@@ -175,7 +177,7 @@ list.addEventListener('click', function(ev) {
 // Create a new list item when clicking on the "Add" button
 function newElement() {
   var li = document.createElement("li");
-  fetch('ToDoListServlet')
+  
   var inputValue = document.getElementById("myInput").value;
   var t = document.createTextNode(inputValue);
   li.appendChild(t);
@@ -198,6 +200,19 @@ function newElement() {
       div.style.display = "none";
     }
   }
+  
+  fetch('ToDoListServlet',  {
+		method: 'post',
+		headers: {'Content-Type': 'application/x-www-form-urlencoded'}, //post 방식으로 요청할 때는 헤더 정보를 넣어줘야함
+		body: `job=insert&toDo=${inputValue}`
+	})
+	.then(result => {
+	  	console.log(inputValue)
+	})
+	.catch(error => {
+		console.log(error);
+	})	
+
 }
 </script>
 
