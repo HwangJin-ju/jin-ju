@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import co.edu.full.FullVO;
+
 
 @WebServlet("/ToDoListServlet")
 public class ToDoListServlet extends HttpServlet {
@@ -36,6 +38,24 @@ public class ToDoListServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 입력, 삭제
+		request.setCharacterEncoding("utf-8");
+		String job = request.getParameter("job");
+		
+		ToDoDAO dao = new ToDoDAO();
+		
+		if(job.equals("insert")) {
+			String toDo = request.getParameter("toDo");
+			String checked = request.getParameter("checked");
+			
+			ToDoVO vo = new ToDoVO(toDo, checked);
+			dao.insertList(vo);
+			
+		} else if(job.equals("delete")) {
+			String title = request.getParameter("title");
+			
+		}
+				
 	}
 
 }

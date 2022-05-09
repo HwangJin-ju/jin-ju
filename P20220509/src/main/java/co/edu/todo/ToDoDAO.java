@@ -37,6 +37,21 @@ public class ToDoDAO {
 	
 	// 한건 입력
 	
+	public void insertList(ToDoVO vo) {
+		getConnect();
+		String sql = "insert into to_do_list (to_do, checked) values(?,?)";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, vo.getToDo());
+			int r = psmt.executeUpdate();
+			System.out.println(r+"건 입력");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+	}
+	
 	// 한건 삭제
 	
 	// 한건 수정
@@ -78,5 +93,7 @@ public class ToDoDAO {
 			}
 		}
 	}
+
+	
 
 }
