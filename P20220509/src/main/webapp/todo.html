@@ -139,6 +139,8 @@ input {
 
 <script>
 
+//var todos = [{title:?, status:?},{}]; // result => result.json
+//ajax 호출
 
 
 
@@ -159,21 +161,23 @@ var close = document.getElementsByClassName("close");
 var i;
 for (i = 0; i < close.length; i++) {
   close[i].onclick = function() {
+  	//ajax호출. 삭제
     var div = this.parentElement;
     div.style.display = "none";
   }
 }
 
-// update
+// update  
 // Add a "checked" symbol when clicking on a list item
 var list = document.querySelector('ul');
 list.addEventListener('click', function(ev) {
   if (ev.target.tagName === 'LI') {
+  	//ajax호출. 변경
     ev.target.classList.toggle('checked');
   }
 }, false);
 
-// insert
+// insert // list
 // Create a new list item when clicking on the "Add" button
 function newElement() {
   var li = document.createElement("li");
@@ -203,7 +207,7 @@ function newElement() {
   
   fetch('ToDoListServlet',  {
 		method: 'post',
-		headers: {'Content-Type': 'application/x-www-form-urlencoded'}, //post 방식으로 요청할 때는 헤더 정보를 넣어줘야함
+		headers: {'Content-Type': 'application/x-www-form-urlencoded'}, 
 		body: `job=insert&toDo=${inputValue}`
 	})
 	.then(result => {
