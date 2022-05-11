@@ -20,7 +20,7 @@ public class MemberListControl implements Control {
 		
 		request.setAttribute("all", list);
 		
-		request.getRequestDispatcher("memberResult/memberListOutput.jsp").forward(request, response); //요청정보에 memberList에서 조회한 정보를 담음
+		request.getRequestDispatcher("memberResult/memberListOutput.tiles").forward(request, response); //요청정보에 memberList에서 조회한 정보를 담음
 	}
 
 }
