@@ -47,7 +47,7 @@ public class ToDoListServlet extends HttpServlet {
 		if(job.equals("insert")) {
 			String toDo = request.getParameter("toDo");
 			
-			ToDoVO vo = new ToDoVO(toDo);
+			ToDoVO vo = new ToDoVO();
 			dao.insertList(vo);
 			
 		} else if(job.equals("delete")) {

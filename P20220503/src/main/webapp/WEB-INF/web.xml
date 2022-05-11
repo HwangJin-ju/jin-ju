@@ -24,7 +24,7 @@
 		<init-param>
 			<param-name>charset</param-name>
 			<param-value>UTF-8</param-value>
-		</init-param>
+		</init-param> 
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>front</servlet-name>
