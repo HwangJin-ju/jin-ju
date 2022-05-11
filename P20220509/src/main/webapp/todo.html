@@ -147,14 +147,47 @@ document.addEventListener('DOMContentLoaded', function() {
 		.then(json => {
 			console.log(json)
 			json.forEach(todo => {
+				console.log(todo)
 				let obj = {title:todo.toDo, status:todo.status};
 				todos.push(obj);
 			})
-			document.createElement("li");
 			
+			todos.forEach(val => { /* todos = [{title:? status:?}, {title:?, status:?}]  */
+				let li = document.createElement('LI');
+				li.innerHTML=val.title;
+				let ul = document.getElementById('myUL');
+				ul.appendChild(li);
+			})
+			// Create a "close" button and append it to each list item
+			var myNodelist = document.getElementsByTagName("LI");
+			var i;
+			for (i = 0; i < myNodelist.length; i++) {
+			  var span = document.createElement("SPAN");
+			  var txt = document.createTextNode("\u00D7");
+			  span.className = "close";
+			  span.appendChild(txt);
+			  myNodelist[i].appendChild(span);
+			}
+			// delete
+			// Click on a close button to hide the current list item
+			var close = document.getElementsByClassName("close");
+			var i;
+			for (i = 0; i < close.length; i++) {
+			  close[i].onclick = function() {
+			  	//ajax호출. 삭제
+			  	fetch('ToDoListServlet', {
+			          			method: 'post',
+			          			headers: {'Content-Type': 'application/x-www-form-urlencoded'}, //post 방식으로 요청할 때는 헤더 정보를 넣어줘야함
+			          			body: `job=delete` 
+			          		})
+
+			          		.then(console.log(list.innerHTML.value))
+			    var div = this.parentElement;
+			    div.style.display = "none";
+			  }
+			}
 			
-			
-		})
+		}) // .then
 			
 		.catch(error => console.log(error));
 		
@@ -163,30 +196,44 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 })
 
+// insert // list
+			// Create a new list item when clicking on the "Add" button
+			fetch
+			function newElement() {
+			  var li = document.createElement("li");
+			  
+			  var inputValue = document.getElementById("myInput").value;
+			  var t = document.createTextNode(inputValue);
+			  li.appendChild(t);
+			  if (inputValue === '') {
+			    alert("You must write something!");
+			  } else {
+			    document.getElementById("myUL").appendChild(li);
+			  }
+			  document.getElementById("myInput").value = "";
+
+			  var span = document.createElement("SPAN");
+			  var txt = document.createTextNode("\u00D7");
+			  span.className = "close";
+			  span.appendChild(txt);
+			  li.appendChild(span);
+
+			  for (i = 0; i < close.length; i++) {
+			    close[i].onclick = function() {
+			      var div = this.parentElement;
+			      div.style.display = "none";
+			    }
+			  }
+			  
+
+			}
+			
+			
+	
 
 
-// Create a "close" button and append it to each list item
-var myNodelist = document.getElementsByTagName("LI");
-var i;
-for (i = 0; i < myNodelist.length; i++) {
-  var span = document.createElement("SPAN");
-  var txt = document.createTextNode("\u00D7");
-  span.className = "close";
-  span.appendChild(txt);
-  myNodelist[i].appendChild(span);
-}
 
-// delete
-// Click on a close button to hide the current list item
-var close = document.getElementsByClassName("close");
-var i;
-for (i = 0; i < close.length; i++) {
-  close[i].onclick = function() {
-  	//ajax호출. 삭제
-    var div = this.parentElement;
-    div.style.display = "none";
-  }
-}
+
 
 // update  
 // Add a "checked" symbol when clicking on a list item
@@ -198,36 +245,7 @@ list.addEventListener('click', function(ev) {
   }
 }, false);
 
-// insert // list
-// Create a new list item when clicking on the "Add" button
-function newElement() {
-  var li = document.createElement("li");
-  
-  var inputValue = document.getElementById("myInput").value;
-  var t = document.createTextNode(inputValue);
-  li.appendChild(t);
-  if (inputValue === '') {
-    alert("You must write something!");
-  } else {
-    document.getElementById("myUL").appendChild(li);
-  }
-  document.getElementById("myInput").value = "";
 
-  var span = document.createElement("SPAN");
-  var txt = document.createTextNode("\u00D7");
-  span.className = "close";
-  span.appendChild(txt);
-  li.appendChild(span);
-
-  for (i = 0; i < close.length; i++) {
-    close[i].onclick = function() {
-      var div = this.parentElement;
-      div.style.display = "none";
-    }
-  }
-  
-
-}
 </script>
 
 </body>

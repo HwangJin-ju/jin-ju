@@ -41,7 +41,7 @@ public class ToDoListServlet extends HttpServlet {
 		// 입력, 삭제
 		request.setCharacterEncoding("utf-8");
 		String job = request.getParameter("job");
-		
+	
 		ToDoDAO dao = new ToDoDAO();
 		
 		if(job.equals("insert")) {
@@ -51,7 +51,9 @@ public class ToDoListServlet extends HttpServlet {
 			dao.insertList(vo);
 			
 		} else if(job.equals("delete")) {
+			String toDo = request.getParameter("toDo");
 			
+			dao.deleteList(toDo);
 		}
 				
 	}

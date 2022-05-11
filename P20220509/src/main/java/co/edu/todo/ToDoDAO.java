@@ -40,11 +40,11 @@ public class ToDoDAO {
 	
 	public void insertList(ToDoVO vo) {
 		getConnect();
-		String sql = "insert into to_do_list \r\n"
-				+ "values (?)";
+		String sql = "insert into to_do_list (to_do, status) values (?, ?)";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, vo.getToDo());
+			psmt.setString(2, vo.getStatus());
 			int r = psmt.executeUpdate();
 			System.out.println(r+"건 입력");
 		} catch (SQLException e) {
@@ -55,6 +55,21 @@ public class ToDoDAO {
 	}
 	
 	// 한건 삭제
+	public void deleteList(String toDo) {
+		getConnect();
+		String sql = "delete from to_do_list where to_do =?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, toDo);
+			int r = psmt.executeUpdate();
+			System.out.println(r + "건 삭제");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+		
+	}
 	
 	// 한건 수정
 	
