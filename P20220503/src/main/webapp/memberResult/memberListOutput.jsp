@@ -30,7 +30,7 @@
 							<img width="70px" src ="${pageContext.servletContext.contextPath }/upload/${member.profile }"></td>
 						  </c:if>	
 					</tr>
-								
+					 			
 				</c:forEach>	
 			</tbody>
 		</table>
