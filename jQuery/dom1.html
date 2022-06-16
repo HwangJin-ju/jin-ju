@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <select id="fruit"></select>
+  <script>
+    let arr = [{name:"사과",val:"a"},{name:'배',val:"b"},{name:"키위",val:"c"}];
+    
+    //  for(i=0; i<arr.length; i++) {
+    //   var op = document.createElement("option");
+    //   op.value = arr[i].val;
+    //   op.innerHTML = arr[i].name;
+    //   fruit.appendChild(op);
+    // }
+
+    // 태그생성
+    for(i=0; i<arr.length; i++) {
+      $("<option>").attr("value", arr[i].val).html(arr[i].name).appendTo($("#fruit"))
+    }
+
+    //var op = $("<option>").attr("value", arr[i].val).html(arr[i].name)
+    //$("#fruit").append(op)
+
+    // for(i=0; i<arr.length; i++) {
+    //   $("<option>").val(arr[i].val).html(arr[i].name).appendTo($("#fruit"))
+    
+    // 부모.prepend(자식)
+    // 자식.prependTo(부모)
+    // 형제노드.before(앞노드)  //앞
+    // 형제노드.after(새노드)   //앞
+    
+      // }
+  </script>
+</body>
+</html>

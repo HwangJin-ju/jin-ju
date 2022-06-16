@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var url = 'http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=f5eef3421c602c6cb7ea224104795888&targetDt=20220614'
+    $.ajax({
+      url : url, 
+      method : 'get',
+      dataType : 'json',
+      success : dailyList
+    })
+    // 이 네 가지 옵션은 외워야 함
+    function dailyList(result){ // 파싱 알아서 해 줘서 그 결과를 바로 사용하면 됨
+      console.log(result.boxOfficeResult.dailyBoxOfficeList[0].movieNm);
+    }
+  </script>
+</body>
+</html>

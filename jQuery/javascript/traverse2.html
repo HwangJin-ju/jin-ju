@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>javascript/traverse.html</title>
+  <!-- 댓글 삭제 -->
+</head>
+<body>
+  <table id="goods" border="1">
+    <tr data-no="1">
+      <td>kim</td>
+      <td>내용</td>
+      <td><button type="button" class="btn">삭제</button></td>
+    </tr>
+    <tr data-no="2">
+      <td>park</td>
+      <td>내용2</td>
+      <td><button type="button" class="btn">삭제</button></td>
+    </tr>
+  </table> 
+  <script>
+   var btns = document.getElementsByClassName("btn");
+   for(btn of btns){
+     btn.addEventListener("click", function(){
+    //  //클릭한 버튼의 tr data-no 속성 콘솔에 출력
+    //  console.log(this.closest("tr").getAttribute("data-no"))
+    //  //tr태그 삭제
+    //  this.closest("tr").remove()
+
+     var tr = this.closest("tr");
+     var no = tr.getAttribute("data-no")
+     console.log(no)
+     tr.remove(no)
+     })
+   }
+  </script>
+</body>
+</html>

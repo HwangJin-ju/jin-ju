@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var obj = {}; // new Object()
+    obj.name = "길동"
+    obj.age = 20;
+    obj.dept = "개발"
+    obj.hobby = ['독서', '게임'];
+    var obj2 ={ name: "기자", age: 30, dept:"디자인"}
+
+    var arr = [obj, obj2];
+
+    // 첫번째 사원의 부서
+    console.log(obj.dept);
+
+    // 첫번재 사원의 첫번째 취미
+    console.log(arr[0].hobby[0]);
+    
+  for(i=0; i<arr.length; i++) {
+    console.log(arr[i].name)
+  }  
+
+  for(temp of arr[0].hobby[0]) {
+    console.log(temp);
+  }
+  
+  for(i=0; i<arr.length; i++) {
+    console.log(arr[0].hobby[i])
+  }
+  
+  for(temp of arr[0].hobby) {
+    console.log(temp)
+  }
+  
+
+
+  </script>
+</body>
+</html>

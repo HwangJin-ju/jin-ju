@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>xhr.html</title>
+</head>
+
+<body>
+  날짜 <input type="text" id="date">
+  <button type="button" id="btn">박스오피스조회</button>
+  <button type="button" id="btnInfo">영화조회</button>
+  
+  <div id="boxList"></div>
+  <script>
+    document.getElementById("btn").addEventListener("click", dailyList)
+    document.getElementById("boxList").addEventListener("click", movieInfo)
+
+    function movieInfo() {
+      console.log(event.target)
+      // this 쓰면 안됨 현재 this는 boxList
+      var req = new XMLHttpRequest();
+      var url =`https://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key=f5eef3421c602c6cb7ea224104795888&movieCd=${event.target.getAttribute("data-cd")}`
+      req.open('GET', url, true);
+      req.send();
+      req.onload = function () { // e : 서버에서 넘어온 응답
+        var obj = JSON.parse(this.responseText)
+        //영화상세정보
+        var movie = obj.movieInfoResult.movieInfo;
+        var dirArr = movie.directors;
+        var actorArr = movie.actors;
+
+        boxList.innerHTML=" "
+
+        document.getElementById("boxList").innerHTML+=`영화 제목 : ${movie.movieNm}<br>`
+        for(dir of dirArr) {
+          document.getElementById("boxList").innerHTML+=`영화 감독 : ${dir.peopleNm}<br>`
+        }
+        document.getElementById("boxList").innerHTML+= '출연 배우 : '    
+        for(actor of actorArr) {
+          document.getElementById("boxList").innerHTML+=`${actor.peopleNm} `
+        }
+        }
+      };
+      movieInfo()
+      
+  
+
+    function dailyList() {
+
+      // XMLHttpRequest 객체의 생성
+      var req = new XMLHttpRequest();
+      // 비동기 방식으로 Request를 오픈한다
+      var url =
+        `http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=f5eef3421c602c6cb7ea224104795888&targetDt=${date.value}`
+      req.open('GET', url, true);
+      // Request를 전송한다
+      req.send();
+
+      // XMLHttpRequest.readyState 프로퍼티가 변경(이벤트 발생)될 때마다 콜백함수(이벤트 핸들러)를 호출한다.
+      req.onload = function () { // e : 서버에서 넘어온 응답
+        // 이 함수는 Response가 클라이언트에 도달하면 호출된다.
+        var obj = JSON.parse(this.responseText)
+        //console.log(typeof this.responseText) // 받아온 결과값이 string이므로 오브젝트로 바꿔줘야함
+        var list = obj.boxOfficeResult.dailyBoxOfficeList
+        boxList.innerHTML=" "
+        for (mv of list) {
+          document.getElementById("boxList").innerHTML+=`<div class='info' data-cd='${mv.movieCd}'>${mv.movieNm}</div>`
+        }
+      };
+    }
+  </script>
+</body>
+
+</html>

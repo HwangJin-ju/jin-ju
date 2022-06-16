@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>javascript/traverse.html</title>
+</head>
+<body>
+  <table id="goods" border="1">
+    <tr><td class="no">1</td>
+      <td data-no="g01" id="g01">2</td>
+      <td><button type="button" class="btn">조회</button></td></tr>
+    <tr><td class="no">3</td><td data-no="g02">4</td><td><button type="button" class="btn">조회</button></td></tr>
+    <tr><td class="no">5</td><td data-no="g03">6</td><td><button type="button" class="btn">조회</button></td></tr>
+    <tr><td class="no">7</td><td data-no="f01">8</td><td><button type="button" class="btn">조회</button></td></tr>
+  </table> 
+  <script>
+   var btns = document.getElementsByClassName("btn");
+   for(btn of btns){
+     btn.addEventListener("click", function(){
+      //클릭한 버튼의 앞노드 내용을 조회 부모의 형노드의 내용
+      console.log(this.parentElement.previousElementSibling.innerHTML)
+      //클릭한 버튼 행의 첫번째 td태그의 내용
+      //console.log(this.parentElement.previousElementSibling.previousElementSibling.innerHTML)
+      //console.log(this.closest("tr").firstElementChild.innerHTML) //버튼의 제일 가까운 조상을 찾아서 그 안의 첫 번째 td를 찾아옴
+      //console.log(this.closest("tr").children[0].innerHTML) // 중간에 있는 자식 태그 찾을 때
+      console.log(this.closest("tr").children[1].getAttribute("data-no"))
+     })
+   }
+  </script>
+</body>
+</html>

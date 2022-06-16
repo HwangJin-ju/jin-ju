@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <script>
+    // window.addEventListener("load", function () {})
+    // $(document).ready(function(){});
+    // ready : 돔트리만 완성되면 바로 실행 load : 모든 요소가 다 로딩되면 실행
+    $(function(){
+
+    })
+
+  </script>
+  <style>
+    div {border : 1px solid blue; padding: 10px;}
+  </style>
+  <title>Document</title>
+</head>
+<body>
+  <div id="basket"></div>
+  <div id="apple">apple</div>
+  <div id="banana">banana</div>
+  <script>
+    //새로운 태그 추가
+    $("<div>").html("포도").attr("id", "gr").appendTo($("#basket"))
+    //태그 이동
+    $("#apple").appendTo($("#basket"))
+    //태그 복사
+    //$("#banana").clone().appendTo($("#basket"))
+    $("#basket").append($("#banana").clone())    
+
+  </script>
+</body>
+</html>

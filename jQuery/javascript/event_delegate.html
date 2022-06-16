@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- event_delegate (이멘트 위임) -->
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    span {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <input id="name"><input id="price">
+  <button type="button" id="btn">추가</button>
+  <ul> 
+    <li>바나나<span>300</span></li>
+    <li>사과<span>500</span></li>
+  </ul>
+
+  <script>
+    // 버튼 클릭 이벤트 : input 입력값을 li 태그로 만들어서 추가
+    var ul = document.getElementsByTagName("ul")[0];
+    var gname = document.getElementById("name");
+    var price = document.getElementById("price");
+    
+    btn.addEventListener('click', function () {
+      var li = document.createElement("li");
+      li.innerHTML = `${gname.value}<span style='display:none'>${price.value}</span>`;
+      ul.appendChild(li);
+    })
+    
+    //부모 태그에 이벤트 위임
+    var lilist = document.getElementsByTagName("ul")[0];
+      ul.addEventListener("mouseover", function () {
+        //li태그인지 검사
+        if(event.target.tagName == "LI") {
+          event.target.getElementsByTagName("span")[0].style.display = "inline-block";
+        }
+        console.log(event)
+        
+      ul.addEventListener("mouseout", function () {
+        if(event.target.tagName == "LI"){
+          event.target.getElementsByTagName("span")[0].style.display = "none";
+        }
+      })
+    })
+    
+  </script>
+</body>
+
+</html>

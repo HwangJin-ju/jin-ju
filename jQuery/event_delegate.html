@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <script>
+    var gv = "전역변수";
+    let bv = "블록변수";
+    $(function(){
+      $("#btn").on("click", function(){
+        var lv = "지역변수";
+        //input값을 이용해서 li태그 생성해서 추가
+      // 방법 1  
+      //  var li= $("<li>").html($("#name").val()).appendTo($("ul"));
+      //   $("<span>").html($("#price").val()).appendTo(li);   
+      // 방법 2   
+        var gm = $("#name").html()
+        var pr = $("#price").val()
+        //$("<li>").html(gm + "<span>" + pr + "</span>").appendTo($("ul"))
+        $("<li>").html(`${gm}<span>${pr}</span>`).appendTo($("ul"))  // ``이용 
+      })
+      $("ul").on("mouseenter", "li", function(){
+        //find span태그 찾아서 보이게
+        $(this).find("span").show()
+      })
+      $("ul").on("mouseleave", "li", function(){
+        //span태그 찾아서 안보이게
+        $(this).find("span").hide()
+      })  
+    })
+  </script>
+  <style>
+    span {display: none;}
+  </style>
+  <title>Document</title>
+</head>
+<body>
+  <input id="name"><input id="price">
+  <button type="button" id="btn">추가</button>
+  <ul> 
+    <li>바나나<span>300</span></li>
+    <li>사과<span>500</span></li>
+  </ul>
+</body>
+</html>

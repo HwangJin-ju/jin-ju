@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>widget.html(plugin)</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+  <script>
+    $(function () {
+      //accordion
+      $("#accd").accordion({
+        collapsible: true,
+        active: 0,
+        activate: function (event, ui) { // 뭘 클릭했는지 알 수 있음
+          console.log(ui.newHeader.text())
+        }
+      });
+
+      //datepicker
+      $("#rdt").datepicker({
+        dateFormat: "yy-mm-dd",
+        //maxDate: "+1w" // new Date(2022,7,1) 이런 식으로 넣어도 됨
+        maxDate: new Date(2022, 7, 1),
+        onSelect: function (str, obj) {
+          console.log(str)
+          console.log(obj)
+
+        }
+      });
+
+      function makeModal() {
+        //모달
+        var dialog = $("#dialog").dialog({
+          autoOpen: false,
+          height: 400,
+          width: 350,
+          modal: true,
+          buttons: {
+                    "등록": userAdd(),
+                    "취소": function () {
+                        dialog.dialog("close");
+                    }
+                   }
+        });
+        return dialog;
+      }
+
+      //버튼 클릭
+      $("#btnModal").on("click", function () {
+        $("#dialog").load("form.html", function() {  // load 앞에 선택자가 와야 함 그 선택자에 ajax로 가져온 결과를 넣음 load(컨트롤러) 도 가능함
+          var dialog = makeModal();
+          dialog.dialog("open");
+        })
+      })
+    });
+  </script>
+</head>
+
+<body>
+  <div id="accd">
+    <h3>java</h3>
+    <div>
+      <input name="rdt" id="rdt">
+      <button type="button" id="btnModal">모달팝업열기</button>
+    </div>
+
+    <h3>spring</h3>
+    <div>스프링이란</div>
+
+    <h3>jsp</h3>
+    <div>jsp란</div>
+  </div>
+  <div id="dialog" title="Basic dialog">
+    <!-- <p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized
+      and closed with the &apos;x&apos; icon.</p> -->
+  </div>
+</body>
+
+</html>

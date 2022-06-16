@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input id="inTxt">
+  <button type="button" id="btn">추가</button>
+  <div id="result"></div>
+  <script>
+    btn.addEventListener("click", function(){
+      // value, innerHTML
+      result.innerHTML += inTxt.value + "<br>"
+      //inTxt.select();
+      inTxt.value = '';
+      inTxt.focus();
+    })
+    inTxt.addEventListener("focusin", function(){
+      this.style.backgroundColor = 'cyan';
+    })
+    
+    inTxt.addEventListener("focusout", function(){
+      this.style.backgroundColor = 'white';
+    })
+    inTxt.addEventListener("keypress", function() {
+      console.log(window.event)
+      // console.log(window.event.target)
+      // console.log(this)
+      if(event.keyCode == 13) {
+        btn.click();
+      }
+    })
+
+    document.addEventListener("keydown", function(){
+      console.log(event.keyCode);
+    })
+  </script>
+</body>
+</html>

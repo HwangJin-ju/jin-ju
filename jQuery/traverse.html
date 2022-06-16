@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+  <title>traverse.html</title>
+</head>
+<body>
+  <table id="goods" border="1">
+    <tr><td class="no">1</td>
+      <td data-no="g01" id="g01">2</td>
+      <td><button type="button" class="btn">조회</button></td></tr>
+    <tr><td class="no">3</td><td data-no="g02">4</td><td><button type="button" class="btn">조회</button></td></tr>
+    <tr><td class="no">5</td><td data-no="g03">6</td><td><button type="button" class="btn">조회</button></td></tr>
+    <tr><td class="no">7</td><td data-no="f01">8</td><td><button type="button" class="btn">조회</button></td></tr>
+  </table> 
+  <script>
+   $(".btn").click(function(){ // for문 역할
+      //클릭한 버튼의 앞노드 내용을 조회 부모의 형노드의 내용
+      var td1 = $(this).parent().prev().html();
+      // this만 쓰면 js 객체임 제이쿼리 쓰려면 $() 써주면 됨
+      console.log(td1)
+      //클릭한 버튼 행의 첫번째 td태그의 내용
+      var td2 = $(this).closest("tr").children().first().html();
+      var td3 = $(this).closest("tr").children().eq(1).html(); // 두번째 거
+
+      console.log(td2);
+      console.log(td3);
+
+   })
+  
+   
+  </script>
+</body>
+</html>
