@@ -32,7 +32,8 @@ public class Employee {
 	@JsonProperty("fname")
 	private String first_name;
 	private Integer employee_id;
-	private String department_name;
+	
+	private Departments department;
 	
 	
 	

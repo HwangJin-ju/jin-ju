@@ -17,7 +17,7 @@ import com.yedam.myserver.emp.mapper.EmployeeMapper;
 import com.yedam.myserver.emp.vo.Departments;
 import com.yedam.myserver.emp.vo.Employee;
 
-@RestController
+@RestController 
 @CrossOrigin(origins = {"http://127.0.0.1:5500"})
 public class EmployeeController {
 	private static final Logger logger = 

@@ -1,11 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yedam.myserver.emp.mapper.EmployeeMapper"> 
+<mapper namespace="com.yedam.myserver.emp.mapper.EmployeeMapper">
 
-<select id="findEmployees"  resultType="employee">
+<resultMap type="jobs" id="jobEmployeeMap">
+	<collection property="employees" 
+				javaType="ArrayList" 
+				column="job_id" 
+				ofType="com.yedam.myserver.emp.vo.Employee" 
+				select="findJobEmployees"/>
+</resultMap>
+
+<select id="findJobs" resultMap="jobEmployeeMap">
+	select job_id, job_title 
+	  from jobs
+	 order by job_id 
+</select>
+<select id="findJobEmployees" resultType="com.yedam.myserver.emp.vo.Employee">
 	select *
-	from employees
-	order by employee_id  
+	  from employees
+	  where job_id = #{job_id}
+	 order by job_id 
+</select>
+
+
+ 
+<resultMap type="com.yedam.myserver.emp.vo.Employee" id="employeeMapSelect">
+	<association property="department" javaType="com.yedam.myserver.emp.vo.Departments" 
+				 column="department_id" 
+				 select="findDepartment"/>
+</resultMap>
+<select id="findDepartment" resultType="com.yedam.myserver.emp.vo.Departments">
+	SELECT * 
+	FROM DEPARTMENTS 
+	WHERE DEPARTMENT_ID = #{department_id}
+</select>
+<select id="findEmployees"  resultMap="employeeMapSelect">
+	SELECT E.* 
+	FROM EMPLOYEES E
+	ORDER BY EMPLOYEE_ID  
 </select>
 
 <insert id="persist" >
@@ -42,11 +74,6 @@
 	where employee_id = #{employee_id}
 </update>
 
-<select id="findJobs" resultType="jobs">
-	select job_id, job_title 
-	  from jobs
-	 order by job_id 
-</select>
 
 <select id="findDepartments" resultType="departments">
 	select a.department_id, a.department_name 
