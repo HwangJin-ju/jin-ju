@@ -16,7 +16,7 @@
     }
   </style>
   <script>
-    window.addEventListener("load", function () {
+    /* window.addEventListener("load", function () {
       //확인 버튼 이벤트 
       btn.addEventListener("click", function () {
         //선택과목 수와 선택과목명을 div에 출력(다중선택이 가능함)
@@ -32,7 +32,22 @@
         }
         div.innerHTML="신청한 과목 이름 : " + arr + "<p>" + "신청한 과목 수 : " + arr.length;
       });
-    });
+    }); */
+    
+    $(function(){
+        $("#btn").on("click", function(){
+          var option = $("#subject option:selected")
+          console.log(option)
+          var arr = []
+          var div = $("#result")
+          for (i=0; i<option.length; i++) {
+            if(option.eq(i).val() != null) {
+              arr.push(option.eq(i).text())
+            }
+            div.html(`신청한 과목 이름 : ${arr} <p> 신청한 과목 수 : ${arr.length}`);
+          }
+        })
+      })
   </script>
 </head>
 
