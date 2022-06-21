@@ -44,7 +44,7 @@
 		<level value="debug" />
 	</logger>
 
-	<!-- Root Logger   fetal < error < warn < info  < debug < trace  -->
+	<!-- Root Logger   fetal < error < warn < info  < debug < trace 제일 마지막에 나옴 -->
 	<root>
 		<priority value="debug" />
 		<appender-ref ref="console" />
