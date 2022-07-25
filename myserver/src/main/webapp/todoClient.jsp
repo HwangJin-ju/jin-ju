@@ -200,7 +200,7 @@ function todoList() {
 			if(li.todoyn == '1') {
 				l.addClass("checked")
 			}
-			$("#myUL").append(l);
+			$("#myUL").append(l);f
 		} 
 	});
 }

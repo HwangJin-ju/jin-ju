@@ -4,7 +4,10 @@
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
+		http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
@@ -19,9 +22,21 @@
 	<resources mapping="/template/**" location="/template/" />
 	<resources mapping="/widget/**" location="/widget/" />
 	<resources mapping="/index.html" location="/index.html" />
+	
+	<beans:bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+		<beans:property name="defaultContentType" value="TEXT/HTML" />
+		<beans:property name="parameterName" value="type" />
+		<beans:property name="favorParameter" value="true" />
+		<beans:property name="ignoreUnknownPathExtensions" value="false" />
+		<beans:property name="ignoreAcceptHeader" value="false" />
+		<beans:property name="useJaf" value="true" />
+	</beans:bean>
 
-	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
-	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<beans:bean p:order="1" class="org.springframework.web.servlet.view.BeanNameViewResolver" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
+		in the /WEB-INF/views directory -->
+	<beans:bean p:order="2" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
@@ -29,6 +44,14 @@
 	<context:component-scan base-package="com.yedam.myserver" >
 	  <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
+	
+<!-- 	<beans:bean id="myHandler" class="com.yedam.myserver.common.SpringSocketHandlerJSON" />
+	<websocket:handlers>
+		<websocket:mapping path="/BroadcastingServer.do" handler="myHandler" />
+		<websocket:handshake-interceptors>
+			<beans:bean class="com.yedam.myserver.common.SpringSocketHandlerJSON"/>
+		</websocket:handshake-interceptors>
+	</websocket:handlers> -->
 		
 
 </beans:beans>
