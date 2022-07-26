@@ -12,7 +12,7 @@
 						SAL_DT,
 						CUSTOMER,		
 						BANK_ACCT)
-			VALUES ((select (#{salDt} || (select lpad(count(*)+1, 3,'0') from slip where sal_dt=#{salDt})) from dual),
+			VALUES ( #{salDt} || (SELECT NVL(LPAD(MAX(SUBSTR(SLIP_NO, -1))+1, 3, '0'), '001') FROM SLIP WHERE SAL_DT = #{salDt}),
 			         #{slipAmount},
 				     sysdate,
 				     #{salDt},

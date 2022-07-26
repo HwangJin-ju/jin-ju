@@ -41,6 +41,10 @@
 				obj["customer"] = employee_id+"_"+name;   // 사번_이름
 				obj["bankAcct"] = bankAcct;      // 은행계좌
 				
+				if (parseInt(salary)+parseInt(commission) <=20000) {
+					obj["slipAmount"] = 20000
+				}
+				
 				console.log(obj)
 				//목록에 담기
 				list.push(obj);

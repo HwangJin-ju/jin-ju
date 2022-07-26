@@ -15,7 +15,7 @@ public class SlipServiceImpl implements SlipService{
 		//테이블 입력
 		for(Slip l : slip) {
 			dao.insertSlip(l);  
-		}
+		}		
 	}
 
 }
